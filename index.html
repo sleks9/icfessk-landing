@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <title>ICFESSK | Material ICFES 2026 → Compra por WhatsApp</title>
+  <meta name="description" content="Landing mobile-first de ICFESSK para ICFES 2026: teoría, simulacros, estrategias y plan de estudio. Entrega inmediata. Pregunta por el precio actualizado y compra por WhatsApp." />
+
+  <meta property="og:title" content="ICFESSK | Prepárate para el ICFES 2026" />
+  <meta property="og:description" content="Ruta clara: teoría + simulacros + estrategias. Entrega inmediata. Soporte por WhatsApp. Pregunta por el precio actualizado." />
+  <meta property="og:image" content="./assets/og-image.png" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- SVG sprite único (reutilizable con <use>) -->
+
+    <symbol id="i-external" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 3h7v7" />
+          <path d="M21 3l-9 9" />
+          <path d="M10 7H7.5A2.5 2.5 0 0 0 5 9.5V19A2.5 2.5 0 0 0 7.5 21.5H17A2.5 2.5 0 0 0 19.5 19v-2.5" />
+        </g>
+      </symbol>
+
+  <svg class="svg-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-check" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 6L9 17l-5-5" />
+      </g>
+    </symbol>
+
+    <symbol id="i-book" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7 4.5h12v15H7a3 3 0 0 0-3 3V7.5a3 3 0 0 1 3-3z" />
+        <path d="M7 4.5v15" />
+      </g>
+    </symbol>
+
+    <symbol id="i-target" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="8" />
+        <circle cx="12" cy="12" r="3" />
+        <path d="M12 4v2.5" />
+        <path d="M20 12h-2.5" />
+        <path d="M12 20v-2.5" />
+        <path d="M4 12h2.5" />
+      </g>
+    </symbol>
+
+    <symbol id="i-layers" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 4l8 4-8 4-8-4 8-4z" />
+        <path d="M4 12l8 4 8-4" />
+        <path d="M4 16l8 4 8-4" />
+      </g>
+    </symbol>
+
+    <symbol id="i-calendar" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3.5" y="5.5" width="17" height="15" rx="2.2" />
+        <path d="M7 3.8v3.4" />
+        <path d="M17 3.8v3.4" />
+        <path d="M3.5 9h17" />
+        <path d="M8 12.5h2.5" />
+        <path d="M13.5 12.5H16" />
+        <path d="M8 16h2.5" />
+        <path d="M13.5 16H16" />
+      </g>
+    </symbol>
+
+    <symbol id="i-bolt" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M13 2L5 14h7l-1 8 8-12h-7l1-8z" />
+      </g>
+    </symbol>
+
+    <symbol id="i-chat" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 15a4 4 0 0 1-4 4H9l-5 3v-7a4 4 0 0 1-2-3.5V8a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v7z" />
+        <path d="M7.5 9.5h9" />
+        <path d="M7.5 13h6.5" />
+      </g>
+    </symbol>
+
+    <symbol id="i-clipboard" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="7" y="4.5" width="10" height="3.5" rx="1.2" />
+        <path d="M9 6H7.5A2.5 2.5 0 0 0 5 8.5V19a2.5 2.5 0 0 0 2.5 2.5h9A2.5 2.5 0 0 0 19 19V8.5A2.5 2.5 0 0 0 16.5 6H15" />
+        <path d="M8.5 12h7" />
+        <path d="M8.5 15.5h7" />
+      </g>
+    </symbol>
+  </svg>
+
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Ir al inicio">
+        <span class="logo-wrap" aria-hidden="true">
+          <img class="logo" src="./img/icfessk.png" alt="Logo de ICFESSK" loading="eager" />
+          <span class="logo-fallback">ICFESSK</span>
+        </span>
+        <span class="brand-name">ICFESSK</span>
+      </a>
+
+      <nav class="top-nav" aria-label="Navegación principal">
+        <a class="nav-link" href="#incluye">Qué incluye</a>
+        <a class="nav-link" href="#faq">FAQ</a>
+        <a class="nav-cta" href="https://wa.me/573137478899?text=Hola%20ICFESSK%2C%20quiero%20comprar%20el%20material%20ICFES%202026.%20%C2%BFQu%C3%A9%20incluye%20y%20cu%C3%A1l%20es%20el%20precio%3F" target="_blank" rel="noopener noreferrer">
+          WhatsApp
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido" class="site-main" role="main">
+    <section id="top" class="hero" aria-label="Introducción">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="orb orb-a"></div>
+        <div class="orb orb-b"></div>
+        <div class="orb orb-c"></div>
+        <div class="gridlines"></div>
+      </div>
+
+      <div class="container hero-inner">
+        <div class="hero-card glass">
+          <div class="hero-badge" aria-label="Prueba rápida">
+            <span class="dot"></span>
+            <span class="badge-text">Entrega inmediata · Pregunta por el precio actualizado</span>
+          </div>
+
+          <h1 class="hero-title">
+            Prepárate para el ICFES 2026 con una ruta clara: teoría + simulacros + estrategias
+          </h1>
+
+          <p class="hero-subtitle">
+            Material organizado para estudiar sin perderte: practicas, detectas fallas y mejoras con una guía concreta.
+          </p>
+
+          <ul class="hero-bullets" aria-label="Beneficios clave">
+            <li>
+              <span class="bullet-icon" aria-hidden="true">
+                <svg class="icon icon-bullet" aria-hidden="true"><use href="#i-check"></use></svg>
+              </span>
+              Ruta por temas + práctica para medir progreso
+            </li>
+            <li>
+              <span class="bullet-icon" aria-hidden="true">
+                <svg class="icon icon-bullet" aria-hidden="true"><use href="#i-check"></use></svg>
+              </span>
+              Estrategias para responder mejor (sin humo)
+            </li>
+            <li>
+              <span class="bullet-icon" aria-hidden="true">
+                <svg class="icon icon-bullet" aria-hidden="true"><use href="#i-check"></use></svg>
+              </span>
+              Soporte por WhatsApp para dudas rápidas
+            </li>
+          </ul>
+
+          <div class="hero-actions" role="group" aria-label="Acciones principales">
+            <a class="btn btn-cta" href="https://wa.me/573137478899?text=Hola%20ICFESSK%2C%20quiero%20comprar%20el%20material%20ICFES%202026.%20%C2%BFQu%C3%A9%20incluye%20y%20cu%C3%A1l%20es%20el%20precio%3F" target="_blank" rel="noopener noreferrer">
+              <span class="btn-glow" aria-hidden="true"></span>
+              Comprar por WhatsApp
+              <span class="btn-arrow" aria-hidden="true">→</span>
+              <!-- Ejemplo con UTM (comentado):
+              https://wa.me/573137478899?text=...&utm_source=tiktok&utm_medium=bio&utm_campaign=icfessk_landing
+              -->
+            </a>
+
+            <button class="btn btn-secondary" type="button" data-scroll-to="#incluye">
+              Ver qué incluye
+            </button>
+          </div>
+
+          <div class="micro-proof" aria-label="Pruebas rápidas">
+            <div class="proof">
+              <span class="proof-k">+1.200</span>
+              <span class="proof-v">estudiantes (placeholder)</span>
+            </div>
+            <div class="proof">
+              <span class="proof-k">Entrega</span>
+              <span class="proof-v">inmediata</span>
+            </div>
+            <div class="proof">
+              <span class="proof-k">Soporte</span>
+              <span class="proof-v">por WhatsApp</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-side glass" aria-label="Resumen rápido">
+          <div class="side-top">
+            <p class="side-title">Lo que buscas en 30 segundos</p>
+            <p class="side-text">Teoría clara + práctica real + plan para no improvisar.</p>
+          </div>
+
+          <div class="side-list" role="list">
+            <div class="side-item" role="listitem">
+              <span class="chip">Incluye</span>
+              <span class="side-item-text">Teoría, simulacros, banco de preguntas, plan, estrategias, soporte</span>
+            </div>
+            <div class="side-item" role="listitem">
+              <span class="chip">Ideal</span>
+              <span class="side-item-text">Grado 10–11 y repaso intensivo</span>
+            </div>
+            <div class="side-item" role="listitem">
+              <span class="chip">Precio</span>
+              <span class="side-item-text">Pregunta por el precio actualizado</span>
+            </div>
+          </div>
+
+          <div class="side-actions" role="group" aria-label="Acciones rápidas">
+            <a class="btn btn-mini" href="https://wa.me/573137478899?text=Hola%20ICFESSK%2C%20quiero%20comprar%20el%20material%20ICFES%202026.%20%C2%BFQu%C3%A9%20incluye%20y%20cu%C3%A1l%20es%20el%20precio%3F" target="_blank" rel="noopener noreferrer">
+              Ir a WhatsApp
+            </a>
+            <button class="btn btn-mini btn-ghost" type="button" data-copy-number>
+              Copiar número
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="incluye" class="section" aria-label="Qué incluye">
+      <div class="container">
+        <header class="section-head">
+          <h2 class="section-title">Qué incluye</h2>
+          <p class="section-subtitle">Todo organizado para estudiar con orden: entender → practicar → corregir.</p>
+        </header>
+
+        <div class="cards-6" role="list">
+          <article class="card glass" role="listitem">
+            <div class="card-icon" aria-hidden="true">
+              <svg class="icon icon-card" aria-hidden="true"><use href="#i-book"></use></svg>
+            </div>
+            <h3 class="card-title">Teoría</h3>
+            <p class="card-text">Explicaciones por temas para construir base y repasar rápido.</p>
+          </article>
+
+          <article class="card glass" role="listitem">
+            <div class="card-icon" aria-hidden="true">
+              <svg class="icon icon-card" aria-hidden="true"><use href="#i-target"></use></svg>
+            </div>
+            <h3 class="card-title">Simulacros</h3>
+            <p class="card-text">Práctica tipo prueba para entrenar tiempo y detectar puntos débiles.</p>
+          </article>
+
+          <article class="card glass" role="listitem">
+            <div class="card-icon" aria-hidden="true">
+              <svg class="icon icon-card" aria-hidden="true"><use href="#i-layers"></use></svg>
+            </div>
+            <h3 class="card-title">Banco de preguntas</h3>
+            <p class="card-text">Preguntas por área/tema para practicar de forma dirigida.</p>
+          </article>
+
+          <article class="card glass" role="listitem">
+            <div class="card-icon" aria-hidden="true">
+              <svg class="icon icon-card" aria-hidden="true"><use href="#i-calendar"></use></svg>
+            </div>
+            <h3 class="card-title">Plan de estudio</h3>
+            <p class="card-text">Ruta semanal para no improvisar y avanzar con consistencia.</p>
+          </article>
+
+          <article class="card glass" role="listitem">
+            <div class="card-icon" aria-hidden="true">
+              <svg class="icon icon-card" aria-hidden="true"><use href="#i-bolt"></use></svg>
+            </div>
+            <h3 class="card-title">Estrategias</h3>
+            <p class="card-text">Técnicas para lectura, descarte y control del tiempo.</p>
+          </article>
+
+          <article class="card glass" role="listitem">
+            <div class="card-icon" aria-hidden="true">
+              <svg class="icon icon-card" aria-hidden="true"><use href="#i-chat"></use></svg>
+            </div>
+            <h3 class="card-title">Soporte</h3>
+            <p class="card-text">Acompañamiento por WhatsApp para dudas rápidas sobre el material.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="como-funciona" class="section" aria-label="Cómo funciona">
+      <div class="container">
+        <header class="section-head">
+          <h2 class="section-title">Cómo funciona</h2>
+          <p class="section-subtitle">Sin vueltas. En 3 pasos pasas de “no sé por dónde empezar” a “ya tengo plan”.</p>
+        </header>
+
+        <ol class="steps" aria-label="Pasos">
+          <li class="step glass">
+            <div class="step-top">
+              <span class="step-num" aria-hidden="true">1</span>
+              <h3 class="step-title">Escribes por WhatsApp</h3>
+            </div>
+            <p class="step-text">Pides qué incluye y el precio actualizado. Te respondemos rápido.</p>
+          </li>
+
+          <li class="step glass">
+            <div class="step-top">
+              <span class="step-num" aria-hidden="true">2</span>
+              <h3 class="step-title">Recibes el material</h3>
+            </div>
+            <p class="step-text">Acceso/entrega inmediata (según el formato). Todo organizado por secciones.</p>
+          </li>
+
+          <li class="step glass">
+            <div class="step-top">
+              <span class="step-num" aria-hidden="true">3</span>
+              <h3 class="step-title">Sigues la ruta</h3>
+            </div>
+            <p class="step-text">Teoría → práctica → simulacros. Ajustas con soporte por WhatsApp.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="testimonios" class="section" aria-label="Testimonios">
+      <div class="container">
+        <header class="section-head">
+          <h2 class="section-title">Testimonios</h2>
+          <p class="section-subtitle">Placeholders realistas (para que luego pongas los tuyos con capturas).</p>
+        </header>
+
+        <div class="testimonials" role="list">
+          <figure class="testimonial glass" role="listitem">
+            <blockquote class="quote">“Lo que más me sirvió fue tener una ruta. Antes estudiaba por impulso; ahora sé qué hacer cada semana.”</blockquote>
+            <figcaption class="who">
+              <span class="who-name">Valentina</span>
+              <span class="who-meta">Grado 11 · Cali (placeholder)</span>
+            </figcaption>
+          </figure>
+
+          <figure class="testimonial glass" role="listitem">
+            <blockquote class="quote">“Los simulacros me ayudaron a manejar el tiempo. Me di cuenta en qué áreas perdía minutos.”</blockquote>
+            <figcaption class="who">
+              <span class="who-name">Andrés</span>
+              <span class="who-meta">Grado 10 · Palmira (placeholder)</span>
+            </figcaption>
+          </figure>
+
+          <figure class="testimonial glass" role="listitem">
+            <blockquote class="quote">“Me gustó que las estrategias son concretas. No es motivación rara, son tips aplicables.”</blockquote>
+            <figcaption class="who">
+              <span class="who-name">Camila</span>
+              <span class="who-meta">Repaso intensivo · Tuluá (placeholder)</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section" aria-label="Preguntas frecuentes">
+      <div class="container">
+        <header class="section-head">
+          <h2 class="section-title">FAQ</h2>
+          <p class="section-subtitle">Respuestas rápidas para decidir sin fricción.</p>
+        </header>
+
+        <div class="faq glass">
+          <details>
+            <summary>¿Esto es para Calendario A y B?</summary>
+            <div class="faq-body">
+              <p>Sí, la preparación aplica para ambos. Te orientamos por WhatsApp según tu calendario y fecha.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>¿Qué materias cubre?</summary>
+            <div class="faq-body">
+              <p>Cubre las áreas típicas del ICFES (según tu enfoque). Pregunta por WhatsApp y te decimos el detalle del contenido.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>¿En qué formato entregan el material?</summary>
+            <div class="faq-body">
+              <p>Se entrega de forma digital. Por WhatsApp te confirmamos el formato exacto y cómo acceder.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>¿Cuál es el precio?</summary>
+            <div class="faq-body">
+              <p>El precio puede cambiar. Escríbenos y pregunta por el precio actualizado antes de comprar.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>¿Cuánto tiempo necesito para ver mejoras?</summary>
+            <div class="faq-body">
+              <p>Depende de tu constancia. La idea es estudiar con ruta semanal y medir con simulacros para ajustar.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>¿Puedo estudiar si voy “atrasado/a”?</summary>
+            <div class="faq-body">
+              <p>Sí. Puedes empezar por diagnóstico (simulacro) y luego reforzar temas clave con la ruta.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>¿El soporte por WhatsApp es para dudas del material?</summary>
+            <div class="faq-body">
+              <p>Sí, es para dudas rápidas sobre el uso del material y orientación de estudio.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="cta-final" class="section cta-final" aria-label="Comprar por WhatsApp">
+      <div class="container">
+        <div class="cta-card glass">
+          <div class="cta-copy">
+            <h2 class="section-title">Listo. ¿Te lo enviamos por WhatsApp?</h2>
+            <p class="section-subtitle">Escríbenos, pregunta qué incluye y el precio actualizado. Te respondemos con la info completa.</p>
+
+            <div class="cta-actions" role="group" aria-label="Acciones de contacto">
+              <a class="btn btn-cta" href="https://wa.me/573137478899?text=Hola%20ICFESSK%2C%20quiero%20comprar%20el%20material%20ICFES%202026.%20%C2%BFQu%C3%A9%20incluye%20y%20cu%C3%A1l%20es%20el%20precio%3F" target="_blank" rel="noopener noreferrer">
+                <span class="btn-glow" aria-hidden="true"></span>
+                Comprar por WhatsApp
+                <span class="btn-arrow" aria-hidden="true">→</span>
+              </a>
+
+              <button class="btn btn-secondary" type="button" data-copy-number>
+                Copiar número <span class="mono">+57 3137478899</span>
+              </button>
+            </div>
+
+            <p class="tiny muted">
+              Instagram (opcional): <span class="mono">@icfessk</span>
+            </p>
+          </div>
+
+          <div class="cta-side" aria-hidden="true">
+            <div class="neon-ring"></div>
+            <div class="mini-cards">
+              <div class="mini glass">
+                <div class="mini-title">Ruta</div>
+                <div class="mini-text">Teoría → práctica → simulacros</div>
+              </div>
+              <div class="mini glass">
+                <div class="mini-title">Sin promesas raras</div>
+                <div class="mini-text">Enfoque en progreso medible</div>
+              </div>
+              <div class="mini glass">
+                <div class="mini-title">Acción</div>
+                <div class="mini-text">WhatsApp en 1 clic</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="global-toast" id="globalToast" role="status" aria-live="polite" aria-atomic="true" hidden>
+          <span class="toast-text">Número copiado</span>
+          <svg class="icon icon-toast" aria-hidden="true"><use href="#i-check"></use></svg>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="container footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">ICFESSK</span>
+          <span class="muted">· Material ICFES 2026</span>
+        </div>
+        <div class="footer-right">
+          <a class="footer-link" href="https://wa.me/573137478899?text=Hola%20ICFESSK%2C%20quiero%20comprar%20el%20material%20ICFES%202026.%20%C2%BFQu%C3%A9%20incluye%20y%20cu%C3%A1l%20es%20el%20precio%3F" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          <span class="dot-sep" aria-hidden="true">•</span>
+          <button class="footer-link btn-link" type="button" data-copy-number>Copiar número</button>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <div class="sticky-cta" role="region" aria-label="Acceso rápido a WhatsApp">
+    <div class="sticky-inner">
+      <a class="sticky-btn" href="https://wa.me/573137478899?text=Hola%20ICFESSK%2C%20quiero%20comprar%20el%20material%20ICFES%202026.%20%C2%BFQu%C3%A9%20incluye%20y%20cu%C3%A1l%20es%20el%20precio%3F" target="_blank" rel="noopener noreferrer">
+        <span class="sticky-icon" aria-hidden="true">
+          <svg class="icon icon-sticky" aria-hidden="true"><use href="#i-chat"></use></svg>
+        </span>
+        Comprar por WhatsApp
+        <span class="sticky-sub">Precio actualizado</span>
+      </a>
+      <button class="sticky-copy" type="button" aria-label="Copiar número de WhatsApp" data-copy-number>
+        <svg class="icon icon-copy" aria-hidden="true"><use href="#i-clipboard"></use></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="inapp-gate" id="inAppGate" hidden>
+    <div class="inapp-backdrop" data-close-gate aria-hidden="true"></div>
+  
+    <div class="inapp-card glass" role="dialog" aria-modal="true" aria-labelledby="inappTitle">
+      <div class="inapp-top">
+        <div class="inapp-badge" aria-hidden="true">
+          <svg class="icon inapp-icon" aria-hidden="true"><use href="#i-external"></use></svg>
+        </div>
+  
+        <h2 id="inappTitle" class="inapp-title">¡Abre en tu navegador!</h2>
+        <p class="inapp-text">
+          Estás viendo esto desde <span class="hl">TikTok</span>. A veces el navegador interno bloquea WhatsApp.
+          Para que el botón funcione bien, ábrelo en Chrome o Safari.
+        </p>
+      </div>
+  
+      <div class="inapp-steps" aria-label="Instrucciones">
+        <div class="step">
+          <span class="step-n">1</span>
+          <span class="step-t">Toca los <b>3 puntos</b> (⋯) arriba.</span>
+        </div>
+        <div class="step">
+          <span class="step-n">2</span>
+          <span class="step-t">Elige <b>“Abrir en navegador”</b> / <b>Chrome</b> / <b>Safari</b>.</span>
+        </div>
+      </div>
+  
+      <button class="btn btn-cta inapp-copy" type="button" data-copy-link>
+        <svg class="icon" aria-hidden="true"><use href="#i-clipboard"></use></svg>
+        Copiar enlace
+      </button>
+  
+      <p class="tiny muted inapp-note">
+        Luego pégalo en Chrome/Safari y vuelve a tocar “Comprar por WhatsApp”.
+      </p>
+  
+      <!-- Solo aparece cuando el modal se abrió al hacer clic en WhatsApp -->
+      <button class="btn btn-secondary inapp-try" type="button" data-try-wa hidden>
+        Intentar abrir WhatsApp aquí
+      </button>
+  
+      <button class="btn btn-secondary inapp-close" type="button" data-close-gate>
+        Cerrar
+      </button>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
