@@ -898,12 +898,15 @@ body.gate-open .sticky-cta{ display:none; }
 }
 
 /* ── 2. Fondo animado ──────────────────────────────────────── */
-body::before { animation: glow-drift-1 18s ease-in-out infinite; }
+body::before {
+  animation: glow-drift-1 18s ease-in-out infinite;
+  clip-path: inset(0);
+}
 
 .hero::before {
   content:"";
   position:absolute;
-  inset:-120px;
+  inset:0;
   z-index:-1;
   background:
     radial-gradient(700px 400px at 85% 60%, rgba(233,33,228,0.12), transparent 55%),
