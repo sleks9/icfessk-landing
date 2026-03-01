@@ -142,6 +142,34 @@
     }
   });
 
-  document.documentElement.style.scrollBehavior = prefersReduced ? "auto" : "smooth";
+
+  // ── Scroll reveal ────────────────────────────────────────────
+  const revealEls = document.querySelectorAll(".reveal, .reveal-group");
+  if (revealEls.length && "IntersectionObserver" in window) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => obs.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add("is-visible"));
+  }
+
+  // ── Ripple posicionado en botones ────────────────────────────
+  document.addEventListener("pointerdown", (e) => {
+    const btn = e.target.closest(".btn, .sticky-btn, .sticky-copy, .inapp-copy-btn, .nav-cta");
+    if (!btn) return;
+    const rect = btn.getBoundingClientRect();
+    const rx = ((e.clientX - rect.left) / rect.width  * 100).toFixed(1) + "%";
+    const ry = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1) + "%";
+    btn.style.setProperty("--rx", rx);
+    btn.style.setProperty("--ry", ry);
+  }, { passive: true });
+
+    document.documentElement.style.scrollBehavior = prefersReduced ? "auto" : "smooth";
   setupLogoFallback();
 })();
