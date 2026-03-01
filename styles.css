@@ -548,7 +548,17 @@
     align-items:center;
     gap:10px;
     max-width: calc(100% - 24px);
+  
+    /* estado oculto por defecto */
+    opacity: 0;
     pointer-events: none;
+    visibility: hidden;
+    transition: opacity .18s ease, visibility .18s ease;
+  }
+  
+  .global-toast.is-open{
+    opacity: 1;
+    visibility: visible;
   }
   .toast-text{ display:inline-block; }
   

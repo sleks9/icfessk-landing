@@ -13,21 +13,22 @@
       const top = el.getBoundingClientRect().top + window.scrollY - 72; // offset header
       window.scrollTo({ top, behavior: prefersReduced ? "auto" : "smooth" });
     };
-  
+
     const showToast = (msg) => {
-      const toast = document.getElementById("globalToast");
-      if (!toast) return;
-  
-      const textEl = toast.querySelector(".toast-text");
-      if (textEl) textEl.textContent = msg;
-      else toast.textContent = msg;
-  
-      toast.hidden = false;
-      window.clearTimeout(toast.__t);
-      toast.__t = window.setTimeout(() => {
-        toast.hidden = true;
-      }, 1600);
-    };
+        const toast = document.getElementById("globalToast");
+        if (!toast) return;
+      
+        const textEl = toast.querySelector(".toast-text");
+        if (textEl) textEl.textContent = msg;
+        else toast.textContent = msg;
+      
+        toast.classList.add("is-open");
+      
+        window.clearTimeout(toast.__t);
+        toast.__t = window.setTimeout(() => {
+          toast.classList.remove("is-open");
+        }, 1600);
+      };
   
     const setupLogoFallback = () => {
       const img = document.querySelector(".logo");
