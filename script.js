@@ -50,6 +50,37 @@
       }
     };
   
+    const copyText = async (text, promptLabel) => {
+      try {
+        if (!navigator.clipboard || !window.isSecureContext)
+          throw new Error("Clipboard no disponible");
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch {
+        const ok = window.prompt(promptLabel, text);
+        return ok !== null;
+      }
+    };
+  
+    // -------------------------
+    // Sticky height -> CSS var (--sticky-h)
+    // -------------------------
+    const syncStickyHeight = () => {
+      const sticky = document.querySelector(".sticky-cta");
+      if (!sticky) return;
+  
+      const h = Math.ceil(sticky.getBoundingClientRect().height);
+      if (h > 0) {
+        document.documentElement.style.setProperty("--sticky-h", `${h}px`);
+      }
+    };
+  
+    syncStickyHeight();
+    requestAnimationFrame(syncStickyHeight);
+    window.addEventListener("load", syncStickyHeight, { passive: true });
+    window.addEventListener("resize", syncStickyHeight, { passive: true });
+    window.addEventListener("orientationchange", syncStickyHeight, { passive: true });
+  
     // -------------------------
     // Gate TikTok (in-app browser)
     // -------------------------
@@ -74,18 +105,6 @@
       if (!gateEl) return;
       gateEl.hidden = true;
       document.body.classList.remove("gate-open");
-    };
-  
-    const copyText = async (text, promptLabel) => {
-      try {
-        if (!navigator.clipboard || !window.isSecureContext)
-          throw new Error("Clipboard no disponible");
-        await navigator.clipboard.writeText(text);
-        return true;
-      } catch {
-        const ok = window.prompt(promptLabel, text);
-        return ok !== null;
-      }
     };
   
     // -------------------------
