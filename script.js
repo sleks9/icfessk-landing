@@ -129,7 +129,7 @@
 
     const copyLinkBtn = e.target.closest("[data-copy-link]");
     if (copyLinkBtn) {
-      const url = window.location.href;
+      const url = window.location.origin + window.location.pathname;
       const ok = await copyText(url, "Copia el enlace:");
       if (ok) showToast("Enlace copiado", "cyan");
       return;
