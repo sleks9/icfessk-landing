@@ -437,9 +437,9 @@
     </div>
   </div>
 
-  <!-- Gate TikTok in-app: aparece SOLO cuando se toca WhatsApp dentro de TikTok -->
+  <!-- Gate TikTok in-app: se abre AUTOMATICAMENTE al detectar TikTok browser -->
   <div class="inapp-gate" id="inAppGate" hidden>
-    <div class="inapp-backdrop" data-close-gate aria-hidden="true"></div>
+    <div class="inapp-backdrop" aria-hidden="true"></div>
 
     <div class="inapp-card glass" role="dialog" aria-modal="true" aria-labelledby="inappTitle">
       <div class="inapp-top">
@@ -449,34 +449,35 @@
 
         <h2 id="inappTitle" class="inapp-title">¡Abre en tu navegador!</h2>
         <p class="inapp-text">
-          Estás viendo esto desde <span class="hl">TikTok</span>. A veces el navegador interno bloquea WhatsApp.
-          Para que el botón funcione bien, ábrelo en Chrome o Safari.
+          Estás viendo esto desde <span class="hl-tiktok">TikTok</span>.
+          Para una mejor experiencia, ábrelo en
+          <span class="hl-browser">Chrome</span> o <span class="hl-browser">Safari</span>.
         </p>
       </div>
 
       <div class="inapp-steps" aria-label="Instrucciones">
+        <div class="inapp-steps-label" aria-hidden="true">
+          <svg class="icon" aria-hidden="true"><use href="#i-clipboard"></use></svg>
+          INSTRUCCIONES:
+        </div>
         <div class="step">
           <span class="step-n">1</span>
-          <span class="step-t">Toca los <b>3 puntos</b> (⋯) arriba.</span>
+          <span class="step-t">Toca los <b>3 puntos</b> : o el menú ··· de TikTok</span>
         </div>
         <div class="step">
           <span class="step-n">2</span>
-          <span class="step-t">Elige <b>“Abrir en navegador”</b> / <b>Chrome</b> / <b>Safari</b>.</span>
+          <span class="step-t">Selecciona <b>"Abrir en navegador"</b> o <b>"Abrir en Chrome/Safari"</b></span>
         </div>
       </div>
 
-      <button class="btn btn-cta inapp-copy" type="button" data-copy-link>
+      <button class="inapp-copy-btn" type="button" data-copy-link>
         <svg class="icon" aria-hidden="true"><use href="#i-clipboard"></use></svg>
-        Copiar enlace
+        COPIAR ENLACE
       </button>
 
       <p class="tiny muted inapp-note">
-        Luego pégalo en Chrome/Safari y vuelve a tocar “Comprar por WhatsApp”.
+        Luego pégalo en Chrome, Safari u otro navegador
       </p>
-
-      <button class="btn btn-secondary inapp-close" type="button" data-close-gate>
-        Cerrar
-      </button>
     </div>
   </div>
 
