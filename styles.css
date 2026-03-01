@@ -851,22 +851,142 @@ body.gate-open .sticky-cta{ display:none; }
 @media (min-width: 980px){
   .section-title{ font-size: 26px; }
 }
-/* Shimmer animado en botón COPIAR ENLACE */
+/* Shimmer suave en botón COPIAR ENLACE */
 @keyframes copy-btn-shimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position:  200% center; }
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
 }
 .inapp-copy-btn {
-  background-size: 250% auto !important;
+  background-size: 200% auto !important;
+  background-image: linear-gradient(
+    90deg,
+    #0080FF,
+    #5E1AE6,
+    #E921E4,
+    #5E1AE6,
+    #0080FF
+  ) !important;
+  animation: copy-btn-shimmer 5s linear infinite !important;
+}
+
+/* ============================================================
+   ANIMACIONES — sutiles y elegantes
+   ============================================================ */
+
+/* ── 1. Keyframes ──────────────────────────────────────────── */
+@keyframes glow-drift-1 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33%      { transform: translate(40px,-30px) scale(1.08); }
+  66%      { transform: translate(-20px,20px) scale(0.96); }
+}
+@keyframes glow-drift-2 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  40%     { transform: translate(-50px,25px) scale(1.06); }
+  70%     { transform: translate(30px,-15px) scale(0.98); }
+}
+@keyframes fade-up {
+  from { opacity:0; transform:translateY(22px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes dot-pulse {
+  0%,100% { box-shadow:0 0 0 3px rgba(249,255,0,0.14),0 0 18px rgba(249,255,0,0.18); }
+  50%     { box-shadow:0 0 0 5px rgba(249,255,0,0.22),0 0 28px rgba(249,255,0,0.30); }
+}
+@keyframes cta-shimmer {
+  0%   { background-position:-200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ── 2. Fondo animado ──────────────────────────────────────── */
+body::before { animation: glow-drift-1 18s ease-in-out infinite; }
+
+.hero::before {
+  content:"";
+  position:absolute;
+  inset:-120px;
+  z-index:-1;
+  background:
+    radial-gradient(700px 400px at 85% 60%, rgba(233,33,228,0.12), transparent 55%),
+    radial-gradient(600px 350px at 15% 80%, rgba(30,20,234,0.09), transparent 55%);
+  animation: glow-drift-2 22s ease-in-out infinite;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+/* ── 3. Entrada hero ───────────────────────────────────────── */
+.hero-badge   { animation: fade-up .55s ease both; animation-delay:.05s; }
+.hero-title   { animation: fade-up .60s ease both; animation-delay:.15s; }
+.hero-sub     { animation: fade-up .60s ease both; animation-delay:.25s; }
+.hero-bullets { animation: fade-up .60s ease both; animation-delay:.35s; }
+.hero-actions { animation: fade-up .60s ease both; animation-delay:.45s; }
+.micro-proof  { animation: fade-up .60s ease both; animation-delay:.55s; }
+.hero-side    { animation: fade-up .65s ease both; animation-delay:.30s; }
+
+/* ── 4. Dot pulso ──────────────────────────────────────────── */
+.dot { animation: dot-pulse 2.8s ease-in-out infinite; }
+
+/* ── 5. CTA shimmer ────────────────────────────────────────── */
+.btn-cta {
+  background-size: 200% auto;
   background-image: linear-gradient(
     105deg,
-    #00D4FF 0%,
-    #0080FF 25%,
-    #a78bfa 45%,
-    #fff 55%,
-    #a78bfa 65%,
-    #0080FF 80%,
-    #E921E4 100%
-  ) !important;
-  animation: copy-btn-shimmer 2.8s linear infinite !important;
+    rgba(249,255,0,0.92) 0%,
+    rgba(255,255,180,0.98) 40%,
+    rgba(249,255,0,0.92) 60%,
+    rgba(249,255,0,0.74) 100%
+  );
+  animation: cta-shimmer 3.5s linear infinite;
+}
+
+/* ── 6. Scroll reveal ──────────────────────────────────────── */
+.reveal {
+  opacity:0;
+  transform:translateY(20px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.reveal.is-visible { opacity:1; transform:none; }
+
+.reveal-group > * {
+  opacity:0;
+  transform:translateY(18px);
+  transition: opacity .50s ease, transform .50s ease;
+}
+.reveal-group.is-visible > *:nth-child(1) { opacity:1; transform:none; transition-delay:.00s; }
+.reveal-group.is-visible > *:nth-child(2) { opacity:1; transform:none; transition-delay:.10s; }
+.reveal-group.is-visible > *:nth-child(3) { opacity:1; transform:none; transition-delay:.20s; }
+.reveal-group.is-visible > *:nth-child(4) { opacity:1; transform:none; transition-delay:.30s; }
+.reveal-group.is-visible > *:nth-child(5) { opacity:1; transform:none; transition-delay:.40s; }
+.reveal-group.is-visible > *:nth-child(6) { opacity:1; transform:none; transition-delay:.50s; }
+
+/* ── 7. Ripple en botones ──────────────────────────────────── */
+.btn, .sticky-btn, .sticky-copy, .nav-cta {
+  position:relative;
+  overflow:hidden;
+}
+.btn::after, .sticky-btn::after, .sticky-copy::after, .nav-cta::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at var(--rx,50%) var(--ry,50%),
+    rgba(255,255,255,0.26) 0%, transparent 65%);
+  opacity:0;
+  transition:opacity .4s ease;
+  pointer-events:none;
+  border-radius:inherit;
+}
+.btn:active::after, .sticky-btn:active::after,
+.sticky-copy:active::after, .nav-cta:active::after {
+  opacity:1;
+  transition:opacity .05s ease;
+}
+
+/* ── 8. Reduced motion ─────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  body::before, .hero::before { animation:none; }
+  .hero-badge,.hero-title,.hero-sub,.hero-bullets,
+  .hero-actions,.micro-proof,.hero-side { animation:none; opacity:1; transform:none; }
+  .dot { animation:none; }
+  .btn-cta { animation:none; background-size:auto; }
+  .inapp-copy-btn { animation:none !important; }
+  .reveal,.reveal-group > * { opacity:1; transform:none; transition:none; }
 }
