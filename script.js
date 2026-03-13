@@ -86,12 +86,24 @@
 
   const gateEl = document.getElementById("inAppGate");
 
-  const openGate = () => {
+  const trackEvent = (name, data = {}) => {
+    if (typeof window.va !== "function") return;
+    window.va('event', {
+      name,
+      data
+    });
+  };
+
+  const openGate = (reason = "unknown") => {
     if (!gateEl) return;
+    const firstOpen = gateEl.hidden;
     gateEl.hidden = false;
     document.body.classList.add("gate-open");
     const copyBtn = gateEl.querySelector("[data-copy-link]");
     if (copyBtn) copyBtn.focus();
+    if (firstOpen) {
+      trackEvent('tiktok_gate_open', { reason });
+    }
   };
 
   const closeGate = () => {
@@ -100,15 +112,51 @@
     document.body.classList.remove("gate-open");
   };
 
+  const getWaSource = (waLink) => {
+    return (
+      waLink.getAttribute('data-wa-source') ||
+      (waLink.classList.contains('sticky-btn') && 'sticky') ||
+      (waLink.classList.contains('nav-cta') && 'header') ||
+      (waLink.classList.contains('footer-link') && 'footer') ||
+      'unknown'
+    );
+  };
+
+  const goToWhatsApp = (waLink) => {
+    const href = waLink.getAttribute('href');
+    if (!href) return;
+    const target = waLink.getAttribute('target');
+    if (target === '_blank') {
+      window.open(href, '_blank', 'noopener,noreferrer');
+      return;
+    }
+    window.location.href = href;
+  };
+
+  const trackWhatsAppClick = (waLink) => {
+    const source = getWaSource(waLink);
+    trackEvent('whatsapp_click', { source });
+    return source;
+  };
+
   if (isTikTokInApp()) {
-    requestAnimationFrame(() => openGate());
+    requestAnimationFrame(() => openGate('auto_detect_tiktok'));
   }
 
   document.addEventListener("click", async (e) => {
     const waLink = e.target.closest('a[href*="wa.me/"]');
-    if (waLink && isTikTokInApp() && gateEl) {
+    if (waLink) {
+      const source = getWaSource(waLink);
+      if (isTikTokInApp() && gateEl) {
+        e.preventDefault();
+        trackEvent('whatsapp_click_blocked_inapp', { source });
+        openGate('whatsapp_click');
+        return;
+      }
+
       e.preventDefault();
-      openGate();
+      trackWhatsAppClick(waLink);
+      window.setTimeout(() => goToWhatsApp(waLink), 120);
       return;
     }
 
@@ -131,7 +179,10 @@
     if (copyLinkBtn) {
       const url = window.location.origin + window.location.pathname;
       const ok = await copyText(url, "Copia el enlace:");
-      if (ok) showToast("Enlace copiado", "cyan");
+      if (ok) {
+        trackEvent('landing_link_copied', { source: 'tiktok_gate' });
+        showToast("Enlace copiado", "cyan");
+      }
       return;
     }
 
