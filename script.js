@@ -10,10 +10,21 @@
   const SUPABASE_URL  = 'https://viqrfcywlduojpacdjpg.supabase.co';
   const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpcXJmY3l3bGR1b2pwYWNkanBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0NTI3MDAsImV4cCI6MjA4OTAyODcwMH0.l08XVJBySwta7d69St-eEYEBpUgrTT7dCwBEzN5o8lk';
 
+  // ── Session ID — identifica visitantes únicos ──────────────
+  const getSessionId = () => {
+    let sid = localStorage.getItem('icfessk_sid');
+    if (!sid) {
+      sid = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2);
+      localStorage.setItem('icfessk_sid', sid);
+    }
+    return sid;
+  };
+  const SESSION_ID = getSessionId();
+
   // ── Registrar evento en Supabase ───────────────────────────
-  // fire-and-forget: no bloquea ni muestra errores al usuario
   const logEvento = (evento, source = null) => {
     const pagina = window.location.pathname.split('/').pop() || 'index';
+    const lead_id = sessionStorage.getItem('icfessk_lead_id') || null;
     fetch(`${SUPABASE_URL}/rest/v1/eventos`, {
       method: 'POST',
       headers: {
@@ -22,8 +33,8 @@
         'Authorization': `Bearer ${SUPABASE_ANON}`,
         'Prefer': 'return=minimal'
       },
-      body: JSON.stringify({ evento, pagina, source })
-    }).catch(() => {}); // silencia errores de red
+      body: JSON.stringify({ evento, pagina, source, session_id: SESSION_ID, lead_id })
+    }).catch(() => {});
   };
 
   // ── Utilidades ─────────────────────────────────────────────

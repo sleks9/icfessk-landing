@@ -208,10 +208,7 @@
       const EMAILJS_TEMPLATE_AVISO  = 'template_b4e7vql';
       const SUPABASE_URL  = 'https://viqrfcywlduojpacdjpg.supabase.co';
       const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpcXJmY3l3bGR1b2pwYWNkanBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0NTI3MDAsImV4cCI6MjA4OTAyODcwMH0.l08XVJBySwta7d69St-eEYEBpUgrTT7dCwBEzN5o8lk';
-
-      // Tu correo para recibir notificaciones de nuevos leads
-      const OWNER_EMAIL = 'icfessk@gmail.com';
-      const DRIVE_LINK  = 'https://drive.google.com/drive/folders/12W9sFUh2xptd8tW5zRurFbyq6EHU4fFs?usp=sharing';
+      // OWNER_EMAIL y DRIVE_LINK ya están fijos en los templates de EmailJS
 
       // Inicializar EmailJS con tu Public Key
       if (EMAILJS_PUBLIC_KEY !== 'TU_PUBLIC_KEY') {
@@ -295,19 +292,17 @@
       const sendEmails = async (nombre, grado, email, whatsapp) => {
         if (EMAILJS_SERVICE_ID === 'TU_SERVICE_ID') {
           console.log('EmailJS no configurado aún. Lead:', { nombre, grado, email, whatsapp });
-          return true; // simula éxito para probar el flujo visual
+          return true;
         }
-        const datos = { nombre, grado, email, whatsapp, link_drive: DRIVE_LINK };
+        const datos = { nombre, grado, email, whatsapp };
         try {
-          // Correo 1 → al alumno: bienvenida + link de Drive
           await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ALUMNO, {
             ...datos,
             to_email: email
           });
-          // Correo 2 → a ti: aviso de nuevo lead para hacer seguimiento por WA
           await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_AVISO, {
             ...datos,
-            to_email: OWNER_EMAIL,
+            to_email: 'icfessk@gmail.com',
             fecha: new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' })
           });
           return true;
@@ -351,21 +346,26 @@
         const nombre   = nombreInput.value.trim();
         const grado    = gradoSelect.value;
         const email    = emailInput.value.trim();
-        const whatsapp = whatsappInput.value.replace(/\D/g, '');
+
+        // Normalizar WhatsApp: quitar no-dígitos, agregar 57 si no lo tiene
+        let whatsapp = whatsappInput.value.replace(/\D/g, '');
+        if (!whatsapp.startsWith('57')) whatsapp = '57' + whatsapp;
 
         submitBtn.classList.add('loading');
         submitBtn.disabled = true;
         globalError.classList.remove('visible');
 
-        // Enviar correos y guardar lead en paralelo
         const [emailOk] = await Promise.all([
           sendEmails(nombre, grado, email, whatsapp),
           saveLead(nombre, grado, email, whatsapp)
         ]);
 
         if (emailOk) {
-          const params = new URLSearchParams({ nombre, email });
-          window.location.href = `./gracias.html?${params.toString()}`;
+          // Guardar en sessionStorage — sin exponer datos en la URL
+          sessionStorage.setItem('icfessk_nombre', nombre);
+          sessionStorage.setItem('icfessk_email', email);
+          sessionStorage.setItem('icfessk_ok', '1');
+          window.location.href = './gracias.html';
         } else {
           submitBtn.classList.remove('loading');
           submitBtn.disabled = false;

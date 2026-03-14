@@ -157,10 +157,17 @@
         if (img.complete && img.naturalWidth === 0) img.dispatchEvent(new Event('error'));
       }
 
-      // ── Leer parámetros del URL ────────────────────────────
-      const params = new URLSearchParams(window.location.search);
-      const nombre = params.get('nombre');
-      const email  = params.get('email');
+      // ── Leer datos desde sessionStorage ───────────────────
+      // Ya no usamos query params — los datos vienen de sessionStorage
+      const nombre = sessionStorage.getItem('icfessk_nombre');
+      const email  = sessionStorage.getItem('icfessk_email');
+      const okFlag = sessionStorage.getItem('icfessk_ok');
+
+      // Si alguien llega directo sin pasar por el form, redirigir
+      if (!okFlag) {
+        window.location.href = './muestra.html';
+        return;
+      }
 
       // Personalizar con el nombre
       const display = document.getElementById('nombreDisplay');
