@@ -124,6 +124,26 @@
 
   <script>
     (() => {
+      // ── Config Supabase ────────────────────────────────────
+      const SUPABASE_URL  = 'https://viqrfcywlduojpacdjpg.supabase.co';
+      const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpcXJmY3l3bGR1b2pwYWNkanBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0NTI3MDAsImV4cCI6MjA4OTAyODcwMH0.l08XVJBySwta7d69St-eEYEBpUgrTT7dCwBEzN5o8lk';
+
+      const logEvento = (evento, source = null) => {
+        fetch(`${SUPABASE_URL}/rest/v1/eventos`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_ANON,
+            'Authorization': `Bearer ${SUPABASE_ANON}`,
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({ evento, pagina: 'gracias.html', source })
+        }).catch(() => {});
+      };
+
+      // ── Registrar pageview ─────────────────────────────────
+      logEvento('pageview');
+
       // ── Fallback logo ──────────────────────────────────────
       const img = document.querySelector('.logo');
       const fallback = document.querySelector('.logo-fallback');
@@ -137,9 +157,9 @@
       }
 
       // ── Leer parámetros del URL ────────────────────────────
-      const params  = new URLSearchParams(window.location.search);
-      const nombre  = params.get('nombre');
-      const email   = params.get('email');
+      const params = new URLSearchParams(window.location.search);
+      const nombre = params.get('nombre');
+      const email  = params.get('email');
 
       // Personalizar con el nombre
       const display = document.getElementById('nombreDisplay');
@@ -150,9 +170,9 @@
         document.title = `ICFESSK | ¡Listo, ${cap}! Tu muestra está lista`;
       }
 
-      // Mostrar badge con el correo al que llegó
-      const badge      = document.getElementById('emailBadge');
-      const emailSent  = document.getElementById('emailSentTo');
+      // Mostrar badge con el correo
+      const badge     = document.getElementById('emailBadge');
+      const emailSent = document.getElementById('emailSentTo');
       if (email && email.trim() && badge && emailSent) {
         emailSent.textContent = 'Enviado a ' + email.trim();
         badge.style.display = 'inline-flex';
@@ -160,6 +180,26 @@
 
       // Guardar en sessionStorage
       if (nombre) sessionStorage.setItem('icfessk_lead', nombre);
+
+      // ── Tracking de clics ──────────────────────────────────
+      document.addEventListener('click', (e) => {
+
+        // Botón "Abrir material gratuito" → Drive
+        if (e.target.closest('#downloadBtn')) {
+          logEvento('click_abrir_material', 'gracias');
+        }
+
+        // Botón "Quiero el material completo" → WhatsApp premium
+        if (e.target.closest('.btn-wa-upgrade')) {
+          logEvento('click_whatsapp_premium', 'gracias');
+        }
+
+        // Botón WhatsApp del header en gracias
+        if (e.target.closest('.nav-cta')) {
+          logEvento('whatsapp_click', 'gracias_header');
+        }
+
+      });
 
     })();
   </script>

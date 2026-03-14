@@ -1,10 +1,32 @@
-// JS mínimo: scroll suave + copiar número + gate para TikTok in-app browser
+// ICFESSK — script.js
+// scroll suave + copiar número + gate TikTok + tracking de eventos en Supabase
 
 (() => {
   const prefersReduced =
     window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  // ── Config Supabase (tracking de eventos) ─────────────────
+  const SUPABASE_URL  = 'https://viqrfcywlduojpacdjpg.supabase.co';
+  const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpcXJmY3l3bGR1b2pwYWNkanBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0NTI3MDAsImV4cCI6MjA4OTAyODcwMH0.l08XVJBySwta7d69St-eEYEBpUgrTT7dCwBEzN5o8lk';
+
+  // ── Registrar evento en Supabase ───────────────────────────
+  // fire-and-forget: no bloquea ni muestra errores al usuario
+  const logEvento = (evento, source = null) => {
+    const pagina = window.location.pathname.split('/').pop() || 'index';
+    fetch(`${SUPABASE_URL}/rest/v1/eventos`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON,
+        'Authorization': `Bearer ${SUPABASE_ANON}`,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ evento, pagina, source })
+    }).catch(() => {}); // silencia errores de red
+  };
+
+  // ── Utilidades ─────────────────────────────────────────────
   const smoothScrollTo = (targetSelector) => {
     const el = document.querySelector(targetSelector);
     if (!el) return;
@@ -18,10 +40,8 @@
     const textEl = toast.querySelector(".toast-text");
     if (textEl) textEl.textContent = msg;
     else toast.textContent = msg;
-
     toast.classList.remove("toast-cyan");
     if (variant === "cyan") toast.classList.add("toast-cyan");
-
     toast.classList.add("is-open");
     window.clearTimeout(toast.__t);
     toast.__t = window.setTimeout(() => {
@@ -35,14 +55,10 @@
     const fallback = document.querySelector(".logo-fallback");
     if (!img || !fallback) return;
     fallback.style.display = "none";
-    img.addEventListener(
-      "error",
-      () => {
-        img.style.display = "none";
-        fallback.style.display = "inline-flex";
-      },
-      { once: true }
-    );
+    img.addEventListener("error", () => {
+      img.style.display = "none";
+      fallback.style.display = "inline-flex";
+    }, { once: true });
     if (img.complete && img.naturalWidth === 0) {
       img.dispatchEvent(new Event("error"));
     }
@@ -75,6 +91,7 @@
   window.addEventListener("resize", syncStickyHeight, { passive: true });
   window.addEventListener("orientationchange", syncStickyHeight, { passive: true });
 
+  // ── TikTok in-app gate ─────────────────────────────────────
   const isTikTokInApp = () => {
     const ua = navigator.userAgent || "";
     const ref = document.referrer || "";
@@ -86,12 +103,10 @@
 
   const gateEl = document.getElementById("inAppGate");
 
+  // trackEvent sigue funcionando para Vercel Analytics si está activo
   const trackEvent = (name, data = {}) => {
     if (typeof window.va !== "function") return;
-    window.va('event', {
-      name,
-      data
-    });
+    window.va('event', { name, data });
   };
 
   const openGate = (reason = "unknown") => {
@@ -103,6 +118,7 @@
     if (copyBtn) copyBtn.focus();
     if (firstOpen) {
       trackEvent('tiktok_gate_open', { reason });
+      logEvento('tiktok_gate_open', reason);
     }
   };
 
@@ -133,68 +149,85 @@
     window.location.href = href;
   };
 
-  const trackWhatsAppClick = (waLink) => {
-    const source = getWaSource(waLink);
-    trackEvent('whatsapp_click', { source });
-    return source;
-  };
-
   if (isTikTokInApp()) {
     requestAnimationFrame(() => openGate('auto_detect_tiktok'));
   }
 
+  // ── Registro de pageview ───────────────────────────────────
+  // Sabe desde qué página viene cada visita
+  logEvento('pageview');
+
+  // ── Clicks ─────────────────────────────────────────────────
   document.addEventListener("click", async (e) => {
+
+    // Click en WhatsApp
     const waLink = e.target.closest('a[href*="wa.me/"]');
     if (waLink) {
       const source = getWaSource(waLink);
       if (isTikTokInApp() && gateEl) {
         e.preventDefault();
         trackEvent('whatsapp_click_blocked_inapp', { source });
+        logEvento('whatsapp_click_blocked', source);
         openGate('whatsapp_click');
         return;
       }
-
       e.preventDefault();
-      trackWhatsAppClick(waLink);
+      trackEvent('whatsapp_click', { source });
+      logEvento('whatsapp_click', source);
       window.setTimeout(() => goToWhatsApp(waLink), 120);
       return;
     }
 
+    // Click en "Ver muestra gratuita"
+    const muestraBtn = e.target.closest('a[href*="muestra.html"]');
+    if (muestraBtn) {
+      logEvento('click_ver_muestra', 'banner_landing');
+    }
+
+    // Click en "Ver qué incluye" (scroll)
     const scrollBtn = e.target.closest("[data-scroll-to]");
     if (scrollBtn) {
       const sel = scrollBtn.getAttribute("data-scroll-to");
+      logEvento('click_ver_incluye', sel);
       smoothScrollTo(sel);
       return;
     }
 
+    // Click en copiar número
     const copyNumberBtn = e.target.closest("[data-copy-number]");
     if (copyNumberBtn) {
       const number = "+57 3137478899";
       const ok = await copyText(number, "Copia el número:");
-      if (ok) showToast("Número copiado");
+      if (ok) {
+        showToast("Número copiado");
+        logEvento('copiar_numero');
+      }
       return;
     }
 
+    // Click en copiar enlace (gate TikTok)
     const copyLinkBtn = e.target.closest("[data-copy-link]");
     if (copyLinkBtn) {
       const url = window.location.origin + window.location.pathname;
       const ok = await copyText(url, "Copia el enlace:");
       if (ok) {
         trackEvent('landing_link_copied', { source: 'tiktok_gate' });
+        logEvento('copiar_enlace_tiktok');
         showToast("Enlace copiado", "cyan");
       }
       return;
     }
 
+    // Cerrar gate
     const closeBtn = e.target.closest("[data-close-gate]");
     if (closeBtn) {
       closeGate();
       return;
     }
+
   });
 
-
-  // ── Scroll reveal ────────────────────────────────────────────
+  // ── Scroll reveal ──────────────────────────────────────────
   const revealEls = document.querySelectorAll(".reveal, .reveal-group");
   if (revealEls.length && "IntersectionObserver" in window) {
     const obs = new IntersectionObserver((entries) => {
@@ -210,7 +243,7 @@
     revealEls.forEach(el => el.classList.add("is-visible"));
   }
 
-  // ── Ripple posicionado en botones ────────────────────────────
+  // ── Ripple en botones ──────────────────────────────────────
   document.addEventListener("pointerdown", (e) => {
     const btn = e.target.closest(".btn, .sticky-btn, .sticky-copy, .inapp-copy-btn, .nav-cta");
     if (!btn) return;
@@ -221,6 +254,6 @@
     btn.style.setProperty("--ry", ry);
   }, { passive: true });
 
-    document.documentElement.style.scrollBehavior = prefersReduced ? "auto" : "smooth";
+  document.documentElement.style.scrollBehavior = prefersReduced ? "auto" : "smooth";
   setupLogoFallback();
 })();
