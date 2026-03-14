@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <title>ICFESSK | ¡Tu muestra está lista!</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+
+</head>
+
+<body>
+
+  <!-- Header mini -->
+  <header class="page-header-mini" role="banner">
+    <div class="page-header-inner">
+      <a class="brand" href="./index.html" aria-label="Volver al inicio">
+        <span class="logo-wrap" aria-hidden="true">
+          <img class="logo" src="./img/icfessk.png" alt="" loading="eager" />
+          <span class="logo-fallback">ICFESSK</span>
+        </span>
+        <span class="brand-name">ICFESSK</span>
+      </a>
+      <a class="nav-cta"
+        href="https://wa.me/573137478899?text=Hola%20ICFESSK%2C%20quiero%20comprar%20el%20material%20ICFES%202026.%20%C2%BFQu%C3%A9%20incluye%20y%20cu%C3%A1l%20es%20el%20precio%3F"
+        rel="noopener noreferrer">WhatsApp</a>
+    </div>
+  </header>
+
+  <main class="gracias-page">
+    <div class="gracias-wrap">
+
+      <!-- Card de confirmación -->
+      <div class="confirm-card glass">
+
+        <!-- Ícono éxito -->
+        <div class="success-icon-wrap" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+            stroke="#00d464" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
+        </div>
+
+        <h1 class="confirm-title">
+          ¡Listo<span id="nombreDisplay"></span>!<br>
+          Tu muestra <span class="grad">está lista</span>
+        </h1>
+        <p class="confirm-sub" id="confirmSub">
+          Te enviamos el link al correo. También puedes abrirlo directo aquí abajo.
+        </p>
+
+        <!-- Email display -->
+        <div class="email-sent-badge" id="emailBadge" style="display:none;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          <span id="emailSentTo"></span>
+        </div>
+
+        <!--
+          Reemplaza el href con tu link real de Drive
+        -->
+        <a class="btn-download"
+          href="https://drive.google.com/drive/folders/12W9sFUh2xptd8tW5zRurFbyq6EHU4fFs?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          id="downloadBtn">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Abrir material gratuito
+        </a>
+
+        <span class="download-note">Google Drive · 6 archivos PDF · También te llegó al correo</span>
+
+        <!-- Divisor -->
+        <div class="divider">SIGUIENTE PASO</div>
+
+        <!-- Upgrade a premium -->
+        <div class="upgrade-box">
+          <div class="upgrade-label">¿TE GUSTÓ LA MUESTRA?</div>
+          <div class="upgrade-title">El material completo va mucho más a fondo</div>
+          <div class="upgrade-text">
+            Esta muestra abre la puerta. El material premium la recorre completa:
+            más teoría, más simulacros, banco de preguntas y rutas por subtema.
+          </div>
+          <ul class="complete-list" aria-label="Qué incluye el material completo">
+            <li><span class="complete-dot" aria-hidden="true"></span>Teoría organizada por bloques y subtemas</li>
+            <li><span class="complete-dot" aria-hidden="true"></span>Más práctica filtrada y trabajada por área</li>
+            <li><span class="complete-dot" aria-hidden="true"></span>Simulacros completos con explicación profunda</li>
+            <li><span class="complete-dot" aria-hidden="true"></span>Banco de ejercicios y materiales complementarios</li>
+          </ul>
+          <a class="btn-wa-upgrade"
+            href="https://wa.me/573137478899?text=Hola%20ICFESSK%2C%20ya%20descargué%20la%20muestra%20gratuita%20y%20quiero%20saber%20más%20del%20material%20completo.%20%C2%BFQué%20incluye%20y%20cuál%20es%20el%20precio%3F"
+            rel="noopener noreferrer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 15a4 4 0 0 1-4 4H9l-5 3v-7a4 4 0 0 1-2-3.5V8a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v7z"/>
+            </svg>
+            Quiero el material completo
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Footer mini -->
+      <div class="gracias-footer">
+        ICFESSK · WhatsApp 3137478899 · @icfessk
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      // ── Fallback logo ──────────────────────────────────────
+      const img = document.querySelector('.logo');
+      const fallback = document.querySelector('.logo-fallback');
+      if (img && fallback) {
+        fallback.style.display = 'none';
+        img.addEventListener('error', () => {
+          img.style.display = 'none';
+          fallback.style.display = 'inline-flex';
+        }, { once: true });
+        if (img.complete && img.naturalWidth === 0) img.dispatchEvent(new Event('error'));
+      }
+
+      // ── Leer parámetros del URL ────────────────────────────
+      const params  = new URLSearchParams(window.location.search);
+      const nombre  = params.get('nombre');
+      const email   = params.get('email');
+
+      // Personalizar con el nombre
+      const display = document.getElementById('nombreDisplay');
+      if (nombre && nombre.trim()) {
+        const formatted = nombre.trim().split(' ')[0];
+        const cap = formatted.charAt(0).toUpperCase() + formatted.slice(1).toLowerCase();
+        display.textContent = ', ' + cap;
+        document.title = `ICFESSK | ¡Listo, ${cap}! Tu muestra está lista`;
+      }
+
+      // Mostrar badge con el correo al que llegó
+      const badge      = document.getElementById('emailBadge');
+      const emailSent  = document.getElementById('emailSentTo');
+      if (email && email.trim() && badge && emailSent) {
+        emailSent.textContent = 'Enviado a ' + email.trim();
+        badge.style.display = 'inline-flex';
+      }
+
+      // Guardar en sessionStorage
+      if (nombre) sessionStorage.setItem('icfessk_lead', nombre);
+
+    })();
+  </script>
+
+</body>
+</html>
