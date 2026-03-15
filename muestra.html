@@ -31,7 +31,7 @@
         <span class="brand-name">ICFESSK</span>
       </a>
       <a class="nav-cta"
-        href="https://wa.me/573137478899?text=Hola%20ICFESSK%2C%20quiero%20comprar%20el%20material%20ICFES%202026.%20%C2%BFQu%C3%A9%20incluye%20y%20cu%C3%A1l%20es%20el%20precio%3F"
+        href="https://wa.me/573137478899?text=Hola%20ICFESSK%2C%20tengo%20una%20pregunta%20sobre%20la%20muestra%20gratuita."
         rel="noopener noreferrer">WhatsApp</a>
     </div>
   </header>
@@ -141,6 +141,24 @@
 
         </div>
 
+        <!-- Aceptación de política de privacidad -->
+        <div class="field-group privacy-check-group">
+          <label class="privacy-label">
+            <input type="checkbox" id="privacyCheck" class="privacy-input" />
+            <span class="privacy-custom-check" aria-hidden="true"></span>
+            <span class="privacy-text">
+              Acepto la
+              <a href="./privacidad.html" target="_blank" class="privacy-link">
+                Política de Privacidad
+              </a>
+              y autorizo el tratamiento de mis datos personales según la Ley 1581 de 2012.
+            </span>
+          </label>
+          <span class="field-error" id="privacyError" style="display:none;">
+            Debes aceptar la política de privacidad para continuar.
+          </span>
+        </div>
+
         <button class="btn-submit" id="submitBtn" type="button">
           <div class="spinner" aria-hidden="true"></div>
           <span class="btn-text">Recibir muestra gratis</span>
@@ -204,12 +222,8 @@
       const EMAILJS_PUBLIC_KEY      = 'ooA8tim0PWrdtckTT';
       const EMAILJS_SERVICE_ID      = 'service_wiobyon';
       const EMAILJS_TEMPLATE_ALUMNO = 'template_je4qvff';
-      const EMAILJS_TEMPLATE_AVISO  = 'template_b4e7vql';
       const SUPABASE_URL  = 'https://viqrfcywlduojpacdjpg.supabase.co';
       const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpcXJmY3l3bGR1b2pwYWNkanBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0NTI3MDAsImV4cCI6MjA4OTAyODcwMH0.l08XVJBySwta7d69St-eEYEBpUgrTT7dCwBEzN5o8lk';
-
-      // Tu correo para recibir notificaciones de nuevos leads
-      const OWNER_EMAIL = 'icfessk@gmail.com';
       const DRIVE_LINK  = 'https://drive.google.com/drive/folders/12W9sFUh2xptd8tW5zRurFbyq6EHU4fFs?usp=sharing';
 
       // Inicializar EmailJS con tu Public Key
@@ -228,6 +242,8 @@
       const whatsappError = document.getElementById('whatsappError');
       const globalError   = document.getElementById('globalError');
       const submitBtn     = document.getElementById('submitBtn');
+      const privacyCheck  = document.getElementById('privacyCheck');
+      const privacyError  = document.getElementById('privacyError');
 
       // ── Validaciones ──────────────────────────────────────
       const validate = () => {
@@ -272,6 +288,13 @@
           whatsappError.classList.remove('visible');
         }
 
+        if (!privacyCheck.checked) {
+          privacyError.style.display = 'block';
+          ok = false;
+        } else {
+          privacyError.style.display = 'none';
+        }
+
         return ok;
       };
 
@@ -289,25 +312,18 @@
         globalError.classList.remove('visible');
       });
 
-      // ── Enviar correos con EmailJS ─────────────────────────
-      // Envía DOS correos: uno al alumno con el material, otro a ti como aviso
+      // ── Enviar correo con EmailJS ──────────────────────────
+      // Solo envía UN correo → al alumno con el link de Drive
       const sendEmails = async (nombre, grado, email, whatsapp) => {
         if (EMAILJS_SERVICE_ID === 'TU_SERVICE_ID') {
           console.log('EmailJS no configurado aún. Lead:', { nombre, grado, email, whatsapp });
-          return true; // simula éxito para probar el flujo visual
+          return true;
         }
         const datos = { nombre, grado, email, whatsapp, link_drive: DRIVE_LINK };
         try {
-          // Correo 1 → al alumno: bienvenida + link de Drive
           await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ALUMNO, {
             ...datos,
             to_email: email
-          });
-          // Correo 2 → a ti: aviso de nuevo lead para hacer seguimiento por WA
-          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_AVISO, {
-            ...datos,
-            to_email: OWNER_EMAIL,
-            fecha: new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' })
           });
           return true;
         } catch (err) {

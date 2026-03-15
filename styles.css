@@ -87,6 +87,8 @@
       radial-gradient(820px 520px at 50% 100%, rgba(94,26,230,0.14), transparent 60%),
       var(--bg);
     filter: saturate(1.1);
+    /* Mueve la animación al compositor para reducir TBT en móviles */
+    will-change: transform;
   }
   
   body::after{
@@ -326,6 +328,25 @@
   .footer-link:focus-visible{ outline:none; box-shadow: var(--focus); }
   .btn-link{ cursor:pointer; }
   .dot-sep{ color: rgba(255,255,255,0.25); }
+
+  .footer-social{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    padding: 10px 10px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .footer-social:hover{
+    color: var(--text);
+    background: rgba(255,255,255,0.04);
+    border-color: rgba(255,255,255,0.06);
+  }
+  .footer-social:focus-visible{ outline:none; box-shadow: var(--focus); }
   
   /* Back link — compartido */
   .back-link{
@@ -483,6 +504,47 @@
   }
   .mini-title{ font-weight: 900; margin-bottom: 2px; }
   .mini-text{ color: var(--muted); font-weight: 700; font-size: 13px; }
+
+/* CTA muestra gratis en hero side */
+.side-muestra-cta{
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  text-align: center;
+}
+.side-muestra-label{
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.side-muestra-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(94,26,230,0.45), rgba(233,33,228,0.30));
+  border: 1px solid rgba(233,33,228,0.25);
+  color: var(--text);
+  font-weight: 900;
+  font-size: 14px;
+  text-decoration: none;
+  transition: transform .18s ease, filter .18s ease;
+}
+.side-muestra-btn:hover{ transform: translateY(-1px); filter: brightness(1.12); }
+.side-muestra-btn:active{ transform: scale(0.997); }
+.side-muestra-btn:focus-visible{ outline: none; box-shadow: var(--focus); }
+.side-muestra-note{
+  margin: 8px 0 0;
+  font-size: 11.5px;
+  color: rgba(167,176,214,0.55);
+  font-weight: 700;
+}
   
   /* Secciones */
   .section{ padding: 40px 0; position:relative; }
@@ -818,6 +880,143 @@
   .btn-submit.loading .btn-text{ opacity: 0.7; }
   
   .form-privacy{ text-align: center; font-size: 12px; color: var(--muted); font-weight: 600; margin-top: 12px; }
+
+/* Checkbox de política de privacidad */
+.privacy-check-group{ margin-bottom: 4px; }
+
+.privacy-label{
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.privacy-input{
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.privacy-custom-check{
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  border-radius: 6px;
+  border: 2px solid rgba(255,255,255,0.20);
+  background: rgba(255,255,255,0.05);
+  display: grid;
+  place-items: center;
+  margin-top: 1px;
+  transition: border-color .18s ease, background .18s ease;
+}
+
+.privacy-input:checked + .privacy-custom-check{
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.privacy-input:checked + .privacy-custom-check::after{
+  content: "";
+  width: 5px;
+  height: 9px;
+  border: 2px solid #fff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg) translateY(-1px);
+  display: block;
+}
+
+.privacy-input:focus-visible + .privacy-custom-check{
+  box-shadow: var(--focus);
+}
+
+.privacy-text{
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.privacy-link{
+  color: rgba(167,149,255,0.90);
+  text-decoration: underline;
+  font-weight: 700;
+}
+.privacy-link:hover{ color: #fff; }
+
+/* ============================================================
+   PÁGINA PRIVACIDAD — privacidad.html
+   ============================================================ */
+
+.privacidad-page{
+  min-height: 100dvh;
+  padding: 100px 16px 60px;
+}
+
+.privacidad-wrap{
+  width: min(720px, 100%);
+  margin-inline: auto;
+  display: grid;
+  gap: 20px;
+}
+
+.privacidad-card{
+  padding: 32px 28px;
+  border-radius: var(--radius-lg);
+}
+
+.privacidad-title{
+  margin: 0 0 6px;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+}
+
+.privacidad-meta{
+  margin: 0 0 28px;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.privacidad-body{ color: rgba(233,238,252,0.85); line-height: 1.7; }
+
+.privacidad-body h2{
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--text);
+  margin: 28px 0 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.privacidad-body h2:first-child{ margin-top: 0; }
+
+.privacidad-body p{
+  margin: 0 0 12px;
+  font-size: 14.5px;
+  font-weight: 600;
+}
+
+.privacidad-body ul{
+  margin: 0 0 12px;
+  padding-left: 20px;
+  display: grid;
+  gap: 6px;
+}
+
+.privacidad-body li{
+  font-size: 14.5px;
+  font-weight: 600;
+  color: rgba(233,238,252,0.80);
+}
+
+.privacidad-footer{
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
   
   /* Error global del form */
   .form-global-error{
