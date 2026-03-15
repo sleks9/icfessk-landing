@@ -328,6 +328,10 @@
         try {
           await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
             method: 'POST',
+            // keepalive: true → el browser mantiene la request viva aunque
+            // el usuario navegue a gracias.html antes de recibir la respuesta.
+            // Sin esto, la navegación cancela el fetch y el lead no se guarda.
+            keepalive: true,
             headers: {
               'Content-Type': 'application/json',
               'apikey': SUPABASE_ANON,
