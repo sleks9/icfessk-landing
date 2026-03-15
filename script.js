@@ -177,7 +177,7 @@
 
     const copyLinkBtn = e.target.closest("[data-copy-link]");
     if (copyLinkBtn) {
-      const url = window.location.origin + window.location.pathname;
+      const url = window.location.origin + window.location.pathname + '?utm_source=tiktok&utm_medium=inapp';
       const ok = await copyText(url, "Copia el enlace:");
       if (ok) {
         trackEvent('landing_link_copied', { source: 'tiktok_gate' });
