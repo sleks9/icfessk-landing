@@ -39,7 +39,7 @@
   }
   
   *{ box-sizing:border-box; }
-  html,body{ height:100%; }
+  html,body{ height:100%; overflow-x:hidden; }
   body{
     margin:0;
     font-family: "Onest", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -316,7 +316,7 @@
     flex-wrap: wrap;
   }
   .footer-brand{ font-weight: 900; letter-spacing: 0.02em; }
-  .footer-right{ display:flex; align-items:center; gap: 10px; }
+  .footer-right{ display:flex; align-items:center; gap: 6px; flex-wrap: wrap; }
   .footer-link{
     color: var(--muted);
     padding: 10px 10px;
@@ -380,6 +380,7 @@
   }
   .hero-inner{
     display:grid;
+    grid-template-columns: 1fr;
     gap: 12px;
     align-items:stretch;
   }
@@ -593,7 +594,7 @@
   .cta-card{ border-radius: var(--radius-lg); padding: 18px; display:grid; gap: 14px; }
   .cta-title{ margin:0 0 6px; font-size: 22px; }
   .cta-sub{ margin:0; color: var(--muted); font-weight: 650; }
-  .cta-actions{ display:grid; gap: 10px; }
+  .cta-actions{ display:grid; grid-template-columns: 1fr; gap: 10px; }
   
   /* Sección muestra gratis — banner en la landing */
   .section-muestra{ padding: 0 0 40px; }
@@ -1271,4 +1272,14 @@
     .btn, .sticky-btn, .sticky-copy{ transition:none; }
     .sticky-btn:hover, .btn:hover, .sticky-copy:hover{ transform:none; }
     .inapp-backdrop{ backdrop-filter:none; }
+  }
+
+
+  .hero-muestra-mobile {
+    margin-top: 8px;
+    text-align: center;
+  }
+  
+  @media (min-width: 720px) {
+    .hero-muestra-mobile { display: none; }
   }
