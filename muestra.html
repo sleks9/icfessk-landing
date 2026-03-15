@@ -142,6 +142,24 @@
 
         </div>
 
+        <!-- Aceptación de política de privacidad -->
+        <div class="field-group privacy-check-group">
+          <label class="privacy-label">
+            <input type="checkbox" id="privacyCheck" class="privacy-input" />
+            <span class="privacy-custom-check" aria-hidden="true"></span>
+            <span class="privacy-text">
+              Acepto la
+              <a href="./privacidad.html" target="_blank" class="privacy-link">
+                Política de Privacidad
+              </a>
+              y autorizo el tratamiento de mis datos personales según la Ley 1581 de 2012.
+            </span>
+          </label>
+          <span class="field-error visible" id="privacyError" style="display:none;">
+            Debes aceptar la política de privacidad para continuar.
+          </span>
+        </div>
+
         <button class="btn-submit" id="submitBtn" type="button">
           <div class="spinner" aria-hidden="true"></div>
           <span class="btn-text">Recibir muestra gratis</span>
@@ -205,7 +223,7 @@
       const EMAILJS_PUBLIC_KEY      = 'ooA8tim0PWrdtckTT';
       const EMAILJS_SERVICE_ID      = 'service_wiobyon';
       const EMAILJS_TEMPLATE_ALUMNO = 'template_je4qvff';
-      const EMAILJS_TEMPLATE_AVISO  = 'template_b4e7vql';
+      // TEMPLATE_AVISO desactivado — revisas leads directamente en Supabase
       const SUPABASE_URL  = 'https://viqrfcywlduojpacdjpg.supabase.co';
       const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpcXJmY3l3bGR1b2pwYWNkanBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0NTI3MDAsImV4cCI6MjA4OTAyODcwMH0.l08XVJBySwta7d69St-eEYEBpUgrTT7dCwBEzN5o8lk';
       // OWNER_EMAIL y DRIVE_LINK ya están fijos en los templates de EmailJS
@@ -224,6 +242,8 @@
       const gradoError    = document.getElementById('gradoError');
       const emailError    = document.getElementById('emailError');
       const whatsappError = document.getElementById('whatsappError');
+      const privacyCheck  = document.getElementById('privacyCheck');
+      const privacyError  = document.getElementById('privacyError');
       const globalError   = document.getElementById('globalError');
       const submitBtn     = document.getElementById('submitBtn');
 
@@ -270,6 +290,13 @@
           whatsappError.classList.remove('visible');
         }
 
+        if (!privacyCheck.checked) {
+          privacyError.style.display = 'block';
+          ok = false;
+        } else {
+          privacyError.style.display = 'none';
+        }
+
         return ok;
       };
 
@@ -294,16 +321,11 @@
           console.log('EmailJS no configurado aún. Lead:', { nombre, grado, email, whatsapp });
           return true;
         }
-        const datos = { nombre, grado, email, whatsapp };
         try {
+          // Solo un correo → al alumno con el link de Drive
           await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ALUMNO, {
-            ...datos,
+            nombre, grado, email, whatsapp,
             to_email: email
-          });
-          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_AVISO, {
-            ...datos,
-            to_email: 'icfessk@gmail.com',
-            fecha: new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' })
           });
           return true;
         } catch (err) {
