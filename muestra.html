@@ -316,84 +316,93 @@
 
       // ── Guardar lead en Supabase ───────────────────────────
       const saveLead = async (nombre, grado, email, whatsapp) => {
-        if (SUPABASE_URL === 'TU_SUPABASE_URL') {
-          console.log('Supabase no configurado aún.');
-          return; // no bloquea el flujo
-        }
-        // Capturar UTMs de la URL para saber de qué canal viene cada lead
-        const urlParams = new URLSearchParams(window.location.search);
-        const utm_source = urlParams.get('utm_source') || null;
-        const utm_medium = urlParams.get('utm_medium') || null;
-        const utm_campaign = urlParams.get('utm_campaign') || null;
-        try {
-          await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
-            method: 'POST',
-            // keepalive: true → el browser mantiene la request viva aunque
-            // el usuario navegue a gracias.html antes de recibir la respuesta.
-            // Sin esto, la navegación cancela el fetch y el lead no se guarda.
-            keepalive: true,
-            headers: {
-              'Content-Type': 'application/json',
-              'apikey': SUPABASE_ANON,
-              'Authorization': `Bearer ${SUPABASE_ANON}`,
-              // resolution=ignore-duplicates evita doble registro si el usuario
-              // reintenta el form tras un fallo de EmailJS.
-              // REQUIERE índice único en la columna email en Supabase.
-              'Prefer': 'return=minimal,resolution=ignore-duplicates'
-            },
-            body: JSON.stringify({
-              nombre, grado, email, whatsapp,
-              source: 'muestra_gratis',
-              status: 'lead',
-              utm_source,
-              utm_medium,
-              utm_campaign
-            })
-          });
-        } catch (err) {
-          console.error('Supabase error:', err);
-          // No bloquea — si Supabase falla el correo igual llegó
-        }
-      };
+  if (SUPABASE_URL === 'TU_SUPABASE_URL') {
+    throw new Error('Supabase no está configurado');
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const utm_source = urlParams.get('utm_source') || null;
+  const utm_medium = urlParams.get('utm_medium') || null;
+  const utm_campaign = urlParams.get('utm_campaign') || null;
+
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+    method: 'POST',
+    keepalive: true,
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': SUPABASE_ANON,
+      'Authorization': `Bearer ${SUPABASE_ANON}`,
+      'Prefer': 'return=representation'
+    },
+    body: JSON.stringify({
+      nombre,
+      grado,
+      email,
+      whatsapp,
+      source: 'muestra_gratis',
+      status: 'lead',
+      utm_source,
+      utm_medium,
+      utm_campaign
+    })
+  });
+
+  const text = await res.text();
+
+  if (!res.ok) {
+    throw new Error(`Supabase ${res.status}: ${text}`);
+  }
+
+  const data = text ? JSON.parse(text) : [];
+  return data[0] || null;
+};
 
       // ── Submit ─────────────────────────────────────────────
       submitBtn.addEventListener('click', async () => {
-        if (!validate()) return;
+  if (!validate()) return;
 
-        const nombre = nombreInput.value.trim();
-        const grado = gradoSelect.value;
-        const email = emailInput.value.trim();
+  const nombre = nombreInput.value.trim();
+  const grado = gradoSelect.value;
+  const email = emailInput.value.trim();
 
-        // Normalizar WhatsApp: quitar no-dígitos
-        // Solo agregar 57 si el número no lo tiene ya (evita 57573001234567)
-        let whatsapp = whatsappInput.value.replace(/\D/g, '');
-        if (whatsapp.startsWith('57') && whatsapp.length >= 12) {
-          // Ya tiene código de país Colombia, dejarlo como está
-        } else if (!whatsapp.startsWith('57')) {
-          whatsapp = '57' + whatsapp;
-        }
+  let whatsapp = whatsappInput.value.replace(/\D/g, '');
+  if (whatsapp.startsWith('57') && whatsapp.length >= 12) {
+    // ya viene con código de país
+  } else if (!whatsapp.startsWith('57')) {
+    whatsapp = '57' + whatsapp;
+  }
 
-        submitBtn.classList.add('loading');
-        submitBtn.disabled = true;
-        globalError.classList.remove('visible');
+  submitBtn.classList.add('loading');
+  submitBtn.disabled = true;
+  globalError.classList.remove('visible');
 
-        const [emailOk] = await Promise.all([
-          sendEmails(nombre, grado, email, whatsapp),
-          saveLead(nombre, grado, email, whatsapp)
-        ]);
+  try {
+    const [emailOk, lead] = await Promise.all([
+      sendEmails(nombre, grado, email, whatsapp),
+      saveLead(nombre, grado, email, whatsapp)
+    ]);
 
-        if (emailOk) {
-          // Guardar en sessionStorage — sin exponer datos en la URL
-          sessionStorage.setItem('icfessk_nombre', nombre);
-          sessionStorage.setItem('icfessk_email', email);
-          sessionStorage.setItem('icfessk_ok', '1');
-          window.location.href = './gracias.html';
-        } else {
-          submitBtn.classList.remove('loading');
-          submitBtn.disabled = false;
-          globalError.classList.add('visible');
-        }
-      });
+    if (!emailOk) {
+      throw new Error('EmailJS falló');
+    }
+
+    if (!lead || !lead.id) {
+      throw new Error('Supabase no devolvió el lead');
+    }
+
+    sessionStorage.setItem('icfessk_lead_id', lead.id);
+    sessionStorage.setItem('icfessk_nombre', nombre);
+    sessionStorage.setItem('icfessk_email', email);
+    sessionStorage.setItem('icfessk_ok', '1');
+
+    window.location.href = './gracias.html';
+  } catch (err) {
+    console.error('Error al enviar formulario:', err);
+    submitBtn.classList.remove('loading');
+    submitBtn.disabled = false;
+    globalError.classList.add('visible');
+  }
+});
 
       // Enter en los campos
       [nombreInput, emailInput, whatsappInput].forEach(el => {
@@ -406,4 +415,5 @@
   </script>
 
 </body>
+
 </html>
