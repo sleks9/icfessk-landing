@@ -32,7 +32,7 @@
         <span class="brand-name">ICFESSK</span>
       </a>
       <a class="nav-cta"
-        href="https://wa.me/573137478899?text=Hola%20ICFESSK%2C%20quiero%20comprar%20el%20material%20ICFES%202026.%20%C2%BFQu%C3%A9%20incluye%20y%20cu%C3%A1l%20es%20el%20precio%3F"
+        href="https://wa.me/573137478899?text=Hola%20ICFESSK%2C%20tengo%20una%20pregunta%20sobre%20la%20muestra%20gratuita."
         rel="noopener noreferrer">WhatsApp</a>
     </div>
   </header>
@@ -155,7 +155,7 @@
               y autorizo el tratamiento de mis datos personales según la Ley 1581 de 2012.
             </span>
           </label>
-          <span class="field-error visible" id="privacyError" style="display:none;">
+          <span class="field-error" id="privacyError" style="display:none;">
             Debes aceptar la política de privacidad para continuar.
           </span>
         </div>
@@ -340,6 +340,11 @@
           console.log('Supabase no configurado aún.');
           return; // no bloquea el flujo
         }
+        // Capturar UTMs de la URL para saber de qué canal viene cada lead
+        const urlParams   = new URLSearchParams(window.location.search);
+        const utm_source   = urlParams.get('utm_source')   || null;
+        const utm_medium   = urlParams.get('utm_medium')   || null;
+        const utm_campaign = urlParams.get('utm_campaign') || null;
         try {
           await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
             method: 'POST',
@@ -347,12 +352,18 @@
               'Content-Type': 'application/json',
               'apikey': SUPABASE_ANON,
               'Authorization': `Bearer ${SUPABASE_ANON}`,
-              'Prefer': 'return=minimal'
+              // resolution=ignore-duplicates evita doble registro si el usuario
+              // reintenta el form tras un fallo de EmailJS.
+              // REQUIERE índice único en la columna email en Supabase.
+              'Prefer': 'return=minimal,resolution=ignore-duplicates'
             },
             body: JSON.stringify({
               nombre, grado, email, whatsapp,
               source: 'muestra_gratis',
-              status: 'lead'
+              status: 'lead',
+              utm_source,
+              utm_medium,
+              utm_campaign
             })
           });
         } catch (err) {
@@ -369,9 +380,14 @@
         const grado    = gradoSelect.value;
         const email    = emailInput.value.trim();
 
-        // Normalizar WhatsApp: quitar no-dígitos, agregar 57 si no lo tiene
+        // Normalizar WhatsApp: quitar no-dígitos
+        // Solo agregar 57 si el número no lo tiene ya (evita 57573001234567)
         let whatsapp = whatsappInput.value.replace(/\D/g, '');
-        if (!whatsapp.startsWith('57')) whatsapp = '57' + whatsapp;
+        if (whatsapp.startsWith('57') && whatsapp.length >= 12) {
+          // Ya tiene código de país Colombia, dejarlo como está
+        } else if (!whatsapp.startsWith('57')) {
+          whatsapp = '57' + whatsapp;
+        }
 
         submitBtn.classList.add('loading');
         submitBtn.disabled = true;

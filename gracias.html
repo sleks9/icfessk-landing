@@ -129,6 +129,17 @@
       const SUPABASE_URL  = 'https://viqrfcywlduojpacdjpg.supabase.co';
       const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpcXJmY3l3bGR1b2pwYWNkanBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0NTI3MDAsImV4cCI6MjA4OTAyODcwMH0.l08XVJBySwta7d69St-eEYEBpUgrTT7dCwBEzN5o8lk';
 
+      // SESSION_ID — mismo que se genera en script.js para index.html
+      // Leerlo (no crearlo) para mantener la misma sesión a lo largo del funnel
+      const SESSION_ID = (() => {
+        let sid = localStorage.getItem('icfessk_sid');
+        if (!sid) {
+          sid = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2);
+          localStorage.setItem('icfessk_sid', sid);
+        }
+        return sid;
+      })();
+
       const logEvento = (evento, source = null) => {
         fetch(`${SUPABASE_URL}/rest/v1/eventos`, {
           method: 'POST',
@@ -138,7 +149,7 @@
             'Authorization': `Bearer ${SUPABASE_ANON}`,
             'Prefer': 'return=minimal'
           },
-          body: JSON.stringify({ evento, pagina: 'gracias.html', source })
+          body: JSON.stringify({ evento, pagina: 'gracias.html', source, session_id: SESSION_ID })
         }).catch(() => {});
       };
 
