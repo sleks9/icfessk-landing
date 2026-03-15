@@ -2,7 +2,6 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <link rel="icon" type="image/png" href="./img/icfessk.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
   <title>ICFESSK | ¡Tu muestra está lista!</title>
@@ -125,37 +124,6 @@
 
   <script>
     (() => {
-      // ── Config Supabase ────────────────────────────────────
-      const SUPABASE_URL  = 'https://viqrfcywlduojpacdjpg.supabase.co';
-      const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpcXJmY3l3bGR1b2pwYWNkanBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0NTI3MDAsImV4cCI6MjA4OTAyODcwMH0.l08XVJBySwta7d69St-eEYEBpUgrTT7dCwBEzN5o8lk';
-
-      // SESSION_ID — mismo que se genera en script.js para index.html
-      // Leerlo (no crearlo) para mantener la misma sesión a lo largo del funnel
-      const SESSION_ID = (() => {
-        let sid = localStorage.getItem('icfessk_sid');
-        if (!sid) {
-          sid = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2);
-          localStorage.setItem('icfessk_sid', sid);
-        }
-        return sid;
-      })();
-
-      const logEvento = (evento, source = null) => {
-        fetch(`${SUPABASE_URL}/rest/v1/eventos`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': SUPABASE_ANON,
-            'Authorization': `Bearer ${SUPABASE_ANON}`,
-            'Prefer': 'return=minimal'
-          },
-          body: JSON.stringify({ evento, pagina: 'gracias.html', source, session_id: SESSION_ID })
-        }).catch(() => {});
-      };
-
-      // ── Registrar pageview ─────────────────────────────────
-      logEvento('pageview');
-
       // ── Fallback logo ──────────────────────────────────────
       const img = document.querySelector('.logo');
       const fallback = document.querySelector('.logo-fallback');
@@ -168,17 +136,10 @@
         if (img.complete && img.naturalWidth === 0) img.dispatchEvent(new Event('error'));
       }
 
-      // ── Leer datos desde sessionStorage ───────────────────
-      // Ya no usamos query params — los datos vienen de sessionStorage
-      const nombre = sessionStorage.getItem('icfessk_nombre');
-      const email  = sessionStorage.getItem('icfessk_email');
-      const okFlag = sessionStorage.getItem('icfessk_ok');
-
-      // Si alguien llega directo sin pasar por el form, redirigir
-      if (!okFlag) {
-        window.location.href = './muestra.html';
-        return;
-      }
+      // ── Leer parámetros del URL ────────────────────────────
+      const params  = new URLSearchParams(window.location.search);
+      const nombre  = params.get('nombre');
+      const email   = params.get('email');
 
       // Personalizar con el nombre
       const display = document.getElementById('nombreDisplay');
@@ -189,9 +150,9 @@
         document.title = `ICFESSK | ¡Listo, ${cap}! Tu muestra está lista`;
       }
 
-      // Mostrar badge con el correo
-      const badge     = document.getElementById('emailBadge');
-      const emailSent = document.getElementById('emailSentTo');
+      // Mostrar badge con el correo al que llegó
+      const badge      = document.getElementById('emailBadge');
+      const emailSent  = document.getElementById('emailSentTo');
       if (email && email.trim() && badge && emailSent) {
         emailSent.textContent = 'Enviado a ' + email.trim();
         badge.style.display = 'inline-flex';
@@ -199,26 +160,6 @@
 
       // Guardar en sessionStorage
       if (nombre) sessionStorage.setItem('icfessk_lead', nombre);
-
-      // ── Tracking de clics ──────────────────────────────────
-      document.addEventListener('click', (e) => {
-
-        // Botón "Abrir material gratuito" → Drive
-        if (e.target.closest('#downloadBtn')) {
-          logEvento('click_abrir_material', 'gracias');
-        }
-
-        // Botón "Quiero el material completo" → WhatsApp premium
-        if (e.target.closest('.btn-wa-upgrade')) {
-          logEvento('click_whatsapp_premium', 'gracias');
-        }
-
-        // Botón WhatsApp del header en gracias
-        if (e.target.closest('.nav-cta')) {
-          logEvento('whatsapp_click', 'gracias_header');
-        }
-
-      });
 
     })();
   </script>

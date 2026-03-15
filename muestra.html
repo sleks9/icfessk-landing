@@ -1,27 +1,26 @@
 <!doctype html>
 <html lang="es">
-
 <head>
   <meta charset="utf-8" />
-  <link rel="icon" type="image/png" href="./img/icfessk.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
   <title>ICFESSK | Muestra gratuita ICFES 2026</title>
-  <meta name="description"
-    content="Recibe gratis la guía inicial, plan de 7 días, muestras por materia y mini simulacro del método ICFESSK para ICFES 2026." />
+  <meta name="description" content="Recibe gratis la guía inicial, plan de 7 días, muestras por materia y mini simulacro del método ICFESSK para ICFES 2026." />
 
+  <!-- EmailJS — envío automático de correos sin backend -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
+
 </head>
 
 <body>
 
+  <!-- Header mini -->
   <header class="page-header-mini" role="banner">
     <div class="page-header-inner">
       <a class="brand" href="./index.html" aria-label="Volver al inicio">
@@ -32,7 +31,7 @@
         <span class="brand-name">ICFESSK</span>
       </a>
       <a class="nav-cta"
-        href="https://wa.me/573137478899?text=Hola%20ICFESSK%2C%20tengo%20una%20pregunta%20sobre%20la%20muestra%20gratuita."
+        href="https://wa.me/573137478899?text=Hola%20ICFESSK%2C%20quiero%20comprar%20el%20material%20ICFES%202026.%20%C2%BFQu%C3%A9%20incluye%20y%20cu%C3%A1l%20es%20el%20precio%3F"
         rel="noopener noreferrer">WhatsApp</a>
     </div>
   </header>
@@ -40,48 +39,62 @@
   <main class="muestra-page">
     <div class="muestra-wrap">
 
+      <!-- Back -->
       <a class="back-link" href="./index.html">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-          stroke-linecap="round" stroke-linejoin="round">
-          <path d="M19 12H5M12 5l-7 7 7 7" />
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 5l-7 7 7 7"/>
         </svg>
         Volver al inicio
       </a>
 
+      <!-- Card principal con formulario -->
       <div class="form-card glass">
 
         <div class="form-top">
           <div class="form-icon-wrap" aria-hidden="true">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-              stroke-linecap="round" stroke-linejoin="round" color="#fff">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="7 10 12 15 17 10" />
-              <line x1="12" y1="15" x2="12" y2="3" />
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+              color="#fff">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
             </svg>
           </div>
           <h1 class="form-title">Recibe la muestra <span class="grad">gratis</span></h1>
           <p class="form-subtitle">Te lo enviamos al correo en segundos, gratis y sin compromiso.</p>
         </div>
 
+        <!-- Qué incluye -->
         <ul class="form-includes" aria-label="Contenido del paquete gratuito">
           <li><span class="include-dot" aria-hidden="true"></span>Guía inicial ICFES 2026</li>
           <li><span class="include-dot" aria-hidden="true"></span>Plan de estudio de 7 días</li>
           <li><span class="include-dot" aria-hidden="true"></span>Muestras por materia (las 5 áreas)</li>
           <li><span class="include-dot" aria-hidden="true"></span>Mini simulacro + respuestas explicadas</li>
         </ul>
+        <p class="form-delivery-note">
+          📩 Te lo enviamos al correo en segundos.
+        </p>
 
-        <p class="form-delivery-note">📩 Te lo enviamos al correo en segundos.</p>
-
+        <!-- Error global -->
         <div class="form-global-error" id="globalError" role="alert" aria-live="polite">
           Algo salió mal. Intenta de nuevo o escríbenos por WhatsApp.
         </div>
 
+        <!-- Formulario -->
         <div class="form-fields">
 
           <div class="field-group">
             <label class="field-label" for="nombre">NOMBRE</label>
-            <input class="field-input" type="text" id="nombre" name="nombre" placeholder="¿Cómo te llamas?"
-              autocomplete="given-name" maxlength="80" />
+            <input
+              class="field-input"
+              type="text"
+              id="nombre"
+              name="nombre"
+              placeholder="¿Cómo te llamas?"
+              autocomplete="given-name"
+              maxlength="80"
+            />
             <span class="field-error" id="nombreError">Por favor escribe tu nombre.</span>
           </div>
 
@@ -98,35 +111,34 @@
 
           <div class="field-group">
             <label class="field-label" for="email">CORREO ELECTRÓNICO</label>
-            <input class="field-input" type="email" id="email" name="email" placeholder="tucorreo@gmail.com"
-              autocomplete="email" maxlength="120" inputmode="email" />
+            <input
+              class="field-input"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="tucorreo@gmail.com"
+              autocomplete="email"
+              maxlength="120"
+              inputmode="email"
+            />
             <span class="field-error" id="emailError">Escribe un correo válido.</span>
           </div>
 
           <div class="field-group">
             <label class="field-label" for="whatsapp">WHATSAPP</label>
-            <input class="field-input" type="tel" id="whatsapp" name="whatsapp" placeholder="Ej: 3001234567"
-              autocomplete="tel" maxlength="20" inputmode="numeric" />
+            <input
+              class="field-input"
+              type="tel"
+              id="whatsapp"
+              name="whatsapp"
+              placeholder="Ej: 3001234567"
+              autocomplete="tel"
+              maxlength="20"
+              inputmode="numeric"
+            />
             <span class="field-error" id="whatsappError">Escribe un número válido (mínimo 7 dígitos).</span>
           </div>
 
-        </div>
-
-        <div class="field-group privacy-check-group">
-          <label class="privacy-label">
-            <input type="checkbox" id="privacyCheck" class="privacy-input" />
-            <span class="privacy-custom-check" aria-hidden="true"></span>
-            <span class="privacy-text">
-              Acepto la
-              <a href="./privacidad.html" target="_blank" class="privacy-link">
-                Política de Privacidad
-              </a>
-              y autorizo el tratamiento de mis datos personales según la Ley 1581 de 2012.
-            </span>
-          </label>
-          <span class="field-error" id="privacyError" style="display:none;">
-            Debes aceptar la política de privacidad para continuar.
-          </span>
         </div>
 
         <button class="btn-submit" id="submitBtn" type="button">
@@ -140,27 +152,28 @@
 
       </div>
 
+      <!-- Card de confianza -->
       <div class="trust-card glass-2">
         <div class="trust-title">POR QUÉ FUNCIONA</div>
         <div class="trust-items">
           <div class="trust-item">
-            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 6L9 17l-5-5" />
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 6L9 17l-5-5"/>
             </svg>
             La muestra no es un PDF suelto — es una ruta de 4 pasos con orden.
           </div>
           <div class="trust-item">
-            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 6L9 17l-5-5" />
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 6L9 17l-5-5"/>
             </svg>
             El mini simulacro te muestra dónde estás parado de verdad.
           </div>
           <div class="trust-item">
-            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 6L9 17l-5-5" />
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 6L9 17l-5-5"/>
             </svg>
             Puedes estudiar desde el celular, sin apps adicionales.
           </div>
@@ -172,6 +185,7 @@
 
   <script>
     (() => {
+      // ── Fallback logo ──────────────────────────────────────
       const img = document.querySelector('.logo');
       const fallback = document.querySelector('.logo-fallback');
       if (img && fallback) {
@@ -180,39 +194,42 @@
           img.style.display = 'none';
           fallback.style.display = 'inline-flex';
         }, { once: true });
-        if (img.complete && img.naturalWidth === 0) {
-          img.dispatchEvent(new Event('error'));
-        }
+        if (img.complete && img.naturalWidth === 0) img.dispatchEvent(new Event('error'));
       }
 
-      const EMAILJS_PUBLIC_KEY = 'ooA8tim0PWrdtckTT';
-      const EMAILJS_SERVICE_ID = 'service_wiobyon';
+      // ================================================================
+      // CONFIG — reemplaza estos 5 valores con los tuyos
+      // Lee el archivo SETUP.md para saber exactamente dónde encontrarlos
+      // ================================================================
+      const EMAILJS_PUBLIC_KEY      = 'ooA8tim0PWrdtckTT';
+      const EMAILJS_SERVICE_ID      = 'service_wiobyon';
       const EMAILJS_TEMPLATE_ALUMNO = 'template_je4qvff';
-
-      const SUPABASE_URL = 'https://viqrfcywlduojpacdjpg.supabase.co';
+      const EMAILJS_TEMPLATE_AVISO  = 'template_b4e7vql';
+      const SUPABASE_URL  = 'https://viqrfcywlduojpacdjpg.supabase.co';
       const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpcXJmY3l3bGR1b2pwYWNkanBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0NTI3MDAsImV4cCI6MjA4OTAyODcwMH0.l08XVJBySwta7d69St-eEYEBpUgrTT7dCwBEzN5o8lk';
 
-      if (EMAILJS_PUBLIC_KEY && EMAILJS_PUBLIC_KEY !== 'TU_PUBLIC_KEY') {
+      // Tu correo para recibir notificaciones de nuevos leads
+      const OWNER_EMAIL = 'icfessk@gmail.com';
+      const DRIVE_LINK  = 'https://drive.google.com/drive/folders/12W9sFUh2xptd8tW5zRurFbyq6EHU4fFs?usp=sharing';
+
+      // Inicializar EmailJS con tu Public Key
+      if (EMAILJS_PUBLIC_KEY !== 'TU_PUBLIC_KEY') {
         emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
       }
 
-      const nombreInput = document.getElementById('nombre');
-      const gradoSelect = document.getElementById('grado');
-      const emailInput = document.getElementById('email');
+      // ── Elementos ─────────────────────────────────────────
+      const nombreInput   = document.getElementById('nombre');
+      const gradoSelect   = document.getElementById('grado');
+      const emailInput    = document.getElementById('email');
       const whatsappInput = document.getElementById('whatsapp');
-      const nombreError = document.getElementById('nombreError');
-      const gradoError = document.getElementById('gradoError');
-      const emailError = document.getElementById('emailError');
+      const nombreError   = document.getElementById('nombreError');
+      const gradoError    = document.getElementById('gradoError');
+      const emailError    = document.getElementById('emailError');
       const whatsappError = document.getElementById('whatsappError');
-      const privacyCheck = document.getElementById('privacyCheck');
-      const privacyError = document.getElementById('privacyError');
-      const globalError = document.getElementById('globalError');
-      const submitBtn = document.getElementById('submitBtn');
+      const globalError   = document.getElementById('globalError');
+      const submitBtn     = document.getElementById('submitBtn');
 
-      const clearGlobalError = () => {
-        globalError.classList.remove('visible');
-      };
-
+      // ── Validaciones ──────────────────────────────────────
       const validate = () => {
         let ok = true;
 
@@ -235,7 +252,7 @@
         }
 
         const emailVal = emailInput.value.trim();
-        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
+        const emailOk  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
         if (!emailOk) {
           emailInput.classList.add('error');
           emailError.classList.add('visible');
@@ -255,49 +272,42 @@
           whatsappError.classList.remove('visible');
         }
 
-        if (!privacyCheck.checked) {
-          privacyError.style.display = 'block';
-          ok = false;
-        } else {
-          privacyError.style.display = 'none';
-        }
-
         return ok;
       };
 
+      // Limpiar errores al escribir/cambiar
       [nombreInput, emailInput, whatsappInput].forEach(el => {
         el.addEventListener('input', () => {
           el.classList.remove('error');
-          const errorEl = el.nextElementSibling;
-          if (errorEl) errorEl.classList.remove('visible');
-          clearGlobalError();
+          el.nextElementSibling.classList.remove('visible');
+          globalError.classList.remove('visible');
         });
       });
-
       gradoSelect.addEventListener('change', () => {
         gradoSelect.classList.remove('error');
         gradoError.classList.remove('visible');
-        clearGlobalError();
+        globalError.classList.remove('visible');
       });
 
-      privacyCheck.addEventListener('change', () => {
-        privacyError.style.display = privacyCheck.checked ? 'none' : 'block';
-        clearGlobalError();
-      });
-
-      const sendEmailToStudent = async (nombre, grado, email, whatsapp) => {
-        if (!EMAILJS_SERVICE_ID || EMAILJS_SERVICE_ID === 'TU_SERVICE_ID') {
-          return false;
+      // ── Enviar correos con EmailJS ─────────────────────────
+      // Envía DOS correos: uno al alumno con el material, otro a ti como aviso
+      const sendEmails = async (nombre, grado, email, whatsapp) => {
+        if (EMAILJS_SERVICE_ID === 'TU_SERVICE_ID') {
+          console.log('EmailJS no configurado aún. Lead:', { nombre, grado, email, whatsapp });
+          return true; // simula éxito para probar el flujo visual
         }
-
+        const datos = { nombre, grado, email, whatsapp, link_drive: DRIVE_LINK };
         try {
+          // Correo 1 → al alumno: bienvenida + link de Drive
           await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ALUMNO, {
-            nombre,
-            grado,
-            email,
-            whatsapp,
-            to_email: email,
-            link_drive: 'https://drive.google.com/drive/folders/12W9sFUh2xptd8tW5zRurFbyq6EHU4fFs?usp=sharing'
+            ...datos,
+            to_email: email
+          });
+          // Correo 2 → a ti: aviso de nuevo lead para hacer seguimiento por WA
+          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_AVISO, {
+            ...datos,
+            to_email: OWNER_EMAIL,
+            fecha: new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' })
           });
           return true;
         } catch (err) {
@@ -306,102 +316,69 @@
         }
       };
 
+      // ── Guardar lead en Supabase ───────────────────────────
       const saveLead = async (nombre, grado, email, whatsapp) => {
-        if (!SUPABASE_URL || SUPABASE_URL === 'TU_SUPABASE_URL') {
-          throw new Error('Supabase no está configurado');
+        if (SUPABASE_URL === 'TU_SUPABASE_URL') {
+          console.log('Supabase no configurado aún.');
+          return; // no bloquea el flujo
         }
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const utm_source = urlParams.get('utm_source') || null;
-        const utm_medium = urlParams.get('utm_medium') || null;
-        const utm_campaign = urlParams.get('utm_campaign') || null;
-
-        const res = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': SUPABASE_ANON,
-            'Authorization': `Bearer ${SUPABASE_ANON}`,
-            'Prefer': 'return=representation'
-          },
-          body: JSON.stringify({
-            nombre,
-            grado,
-            email,
-            whatsapp,
-            source: 'muestra_gratis',
-            status: 'lead',
-            utm_source,
-            utm_medium,
-            utm_campaign
-          })
-        });
-
-        const text = await res.text();
-
-        if (!res.ok) {
-          throw new Error(`Supabase ${res.status}: ${text}`);
+        try {
+          await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'apikey': SUPABASE_ANON,
+              'Authorization': `Bearer ${SUPABASE_ANON}`,
+              'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify({
+              nombre, grado, email, whatsapp,
+              source: 'muestra_gratis',
+              status: 'lead'
+            })
+          });
+        } catch (err) {
+          console.error('Supabase error:', err);
+          // No bloquea — si Supabase falla el correo igual llegó
         }
-
-        const data = text ? JSON.parse(text) : [];
-        return data[0] || null;
       };
 
+      // ── Submit ─────────────────────────────────────────────
       submitBtn.addEventListener('click', async () => {
         if (!validate()) return;
 
-        const nombre = nombreInput.value.trim();
-        const grado = gradoSelect.value;
-        const email = emailInput.value.trim();
-
-        let whatsapp = whatsappInput.value.replace(/\D/g, '');
-        if (!whatsapp.startsWith('57')) {
-          whatsapp = '57' + whatsapp;
-        }
+        const nombre   = nombreInput.value.trim();
+        const grado    = gradoSelect.value;
+        const email    = emailInput.value.trim();
+        const whatsapp = whatsappInput.value.replace(/\D/g, '');
 
         submitBtn.classList.add('loading');
         submitBtn.disabled = true;
-        clearGlobalError();
+        globalError.classList.remove('visible');
 
-        try {
-          const lead = await saveLead(nombre, grado, email, whatsapp);
+        // Enviar correos y guardar lead en paralelo
+        const [emailOk] = await Promise.all([
+          sendEmails(nombre, grado, email, whatsapp),
+          saveLead(nombre, grado, email, whatsapp)
+        ]);
 
-          if (!lead || !lead.id) {
-            throw new Error('Supabase no devolvió el lead');
-          }
-
-          sessionStorage.setItem('icfessk_lead_id', lead.id);
-          sessionStorage.setItem('icfessk_nombre', nombre);
-          sessionStorage.setItem('icfessk_email', email);
-          sessionStorage.setItem('icfessk_ok', '1');
-
-          const emailSent = await sendEmailToStudent(nombre, grado, email, whatsapp);
-          sessionStorage.setItem('icfessk_email_sent', emailSent ? '1' : '0');
-
-          window.location.href = './gracias.html';
-        } catch (err) {
-          console.error('Error al enviar formulario:', err);
+        if (emailOk) {
+          const params = new URLSearchParams({ nombre, email });
+          window.location.href = `./gracias.html?${params.toString()}`;
+        } else {
           submitBtn.classList.remove('loading');
           submitBtn.disabled = false;
           globalError.classList.add('visible');
         }
       });
 
+      // Enter en los campos
       [nombreInput, emailInput, whatsappInput].forEach(el => {
         el.addEventListener('keydown', e => {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-            submitBtn.click();
-          }
+          if (e.key === 'Enter') submitBtn.click();
         });
       });
 
-      gradoSelect.addEventListener('keydown', e => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          submitBtn.click();
-        }
-      });
     })();
   </script>
 
